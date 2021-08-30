@@ -3,9 +3,12 @@
 namespace craftnet\console\controllers;
 
 use Craft;
+use craft\db\Query;
 use craft\helpers\Db;
 use craftnet\Module;
 use craftnet\plugins\Plugin;
+use DateTime;
+use DateTimeZone;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\helpers\ArrayHelper;
@@ -56,7 +59,9 @@ OUTPUT;
      */
     public function actionUpdateInstallCounts(): int
     {
-        Craft::$app->getDb()
+        $db = Craft::$app->getDb();
+
+        $db
             ->createCommand('update craftnet_plugins as p set "activeInstalls" = (
     select count(*) from craftnet_cmslicense_plugins as lp
     where lp."pluginId" = p.id
@@ -65,6 +70,22 @@ OUTPUT;
                 'date' => Db::prepareDateForDb(new \DateTime('1 year ago')),
             ])
             ->execute();
+
+        // Make sure we haven't inserted any historical data for today yet
+        $timestamp = (new DateTime('now', new DateTimeZone('UTC')))->format('Y-m-d');
+        $exists = (new Query())
+            ->from('craftnet_plugin_installs')
+            ->where(['date' => $timestamp])
+            ->exists();
+
+        if (!$exists) {
+            $db
+                ->createCommand('insert into craftnet_plugin_installs("pluginId", "activeInstalls", date) ' .
+                    'select id, "activeInstalls", :date from craftnet_plugins', [
+                    'date' => $timestamp,
+                ])
+                ->execute();
+        }
 
         return ExitCode::OK;
     }
