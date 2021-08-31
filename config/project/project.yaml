@@ -1,4 +1,4 @@
-dateModified: 1629938618
+dateModified: 1630429419
 email:
   fromEmail: support@pixelandtonic.com
   fromName: 'Pixel & Tonic'
@@ -127,5 +127,5 @@ system:
   edition: pro
   live: true
   name: Craftnet
-  schemaVersion: 3.7.7
+  schemaVersion: 3.7.8
   timeZone: UTC
