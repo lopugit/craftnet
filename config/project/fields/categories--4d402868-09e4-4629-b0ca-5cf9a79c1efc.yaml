@@ -9,7 +9,7 @@ settings:
   limit: null
   localizeRelations: ''
   selectionLabel: ''
-  source: 'group:112552be-dfb0-4cca-a725-b0c4ac73705a'
+  source: 'group:112552be-dfb0-4cca-a725-b0c4ac73705a' # Plugin Categories
   sources: '*'
   targetSiteId: null
   viewMode: null

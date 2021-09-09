@@ -6,17 +6,17 @@ name: Icon
 searchable: true
 settings:
   allowedKinds: null
-  defaultUploadLocationSource: 'volume:fc4f52d6-458d-44cb-a2fd-f0042d715d64'
+  defaultUploadLocationSource: 'volume:fc4f52d6-458d-44cb-a2fd-f0042d715d64' # Icons
   defaultUploadLocationSubpath: ''
   limit: '1'
   localizeRelations: ''
   restrictFiles: ''
   selectionLabel: ''
-  singleUploadLocationSource: 'volume:238dc7f2-e863-4b8f-96fa-805a3324dc5d'
+  singleUploadLocationSource: 'volume:238dc7f2-e863-4b8f-96fa-805a3324dc5d' # Avatars
   singleUploadLocationSubpath: ''
   source: null
   sources:
-    - 'volume:fc4f52d6-458d-44cb-a2fd-f0042d715d64'
+    - 'volume:fc4f52d6-458d-44cb-a2fd-f0042d715d64' # Icons
   targetSiteId: null
   useSingleFolder: ''
   viewMode: list
