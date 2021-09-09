@@ -5,6 +5,7 @@ return [
     'aanpqa.com',
     'ai-qa.com',
     'astuteo.dev',
+    'atomix.dev',
     'azure.com',
     'azurewebsites.us',
     'berts.space',
