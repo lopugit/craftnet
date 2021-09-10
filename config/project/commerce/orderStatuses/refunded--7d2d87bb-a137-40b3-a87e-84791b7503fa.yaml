@@ -1,5 +1,6 @@
 color: blue
 default: false
+description: null
 handle: refunded
 name: Refunded
 sortOrder: 2

@@ -1,5 +1,6 @@
 color: green
 default: true
+description: null
 handle: charged
 name: Charged
 sortOrder: 1

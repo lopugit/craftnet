@@ -4,26 +4,62 @@ fieldLayouts:
       -
         elements:
           -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            id: null
             instructions: null
             label: Title
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
             type: craft\fieldlayoutelements\EntryTitleField
+            warning: null
+            width: 100
           -
             fieldUid: fdc2e766-f2a8-4ee0-9ad8-9b7d64b8d86b # Description
+            instructions: null
+            label: null
             required: false
+            tip: null
             type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
           -
             fieldUid: 3729338a-bc60-4be2-9fc4-0e63b4a62d4a # Plugins
+            instructions: null
+            label: null
             required: false
+            tip: null
             type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
           -
             fieldUid: 05fb56bd-4689-45e9-9445-a535cfa2460c # Limit
+            instructions: null
+            label: null
             required: true
+            tip: null
             type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
         name: Settings
         sortOrder: 1
 handle: manual
 hasTitleField: true
 name: 'Manual Selection'
-section: 149763f1-bd8b-4d8e-a8f0-8ce1b0c6d593
+section: 149763f1-bd8b-4d8e-a8f0-8ce1b0c6d593 # Featured Plugins
 sortOrder: 1
-titleFormat: ''
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: ''

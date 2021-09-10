@@ -1,5 +1,6 @@
 color: red
 default: false
+description: null
 handle: disputed
 name: Disputed
 sortOrder: 3

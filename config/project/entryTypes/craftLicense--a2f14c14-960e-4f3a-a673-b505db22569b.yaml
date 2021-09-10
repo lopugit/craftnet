@@ -4,30 +4,71 @@ fieldLayouts:
       -
         elements:
           -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            id: null
             instructions: null
             label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
             type: craft\fieldlayoutelements\EntryTitleField
+            warning: null
+            width: 100
           -
             fieldUid: 63801519-f6aa-468d-9ce9-1a0c289e5ddb # Craft Edition
+            instructions: null
+            label: null
             required: false
+            tip: null
             type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
           -
             fieldUid: 4a4fdb04-6086-4fbd-b79f-1d99cefc9a31 # Domain
+            instructions: null
+            label: null
             required: false
+            tip: null
             type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
           -
             fieldUid: 8965f5ae-4c8e-4529-bfc5-e7345e40d7ce # Auto Renew
+            instructions: null
+            label: null
             required: false
+            tip: null
             type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
           -
             fieldUid: 1f6eaf1e-6f42-4dc2-86cb-62fd3665751a # Notes
+            instructions: null
+            label: null
             required: false
+            tip: null
             type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
         name: License
         sortOrder: 1
 handle: craftLicense
 hasTitleField: false
 name: 'Craft License'
-section: bf872170-c29f-4188-9225-90e97869758b
+section: bf872170-c29f-4188-9225-90e97869758b # Licenses
 sortOrder: 2
 titleFormat: 'Craft License'
+titleTranslationKeyFormat: null
+titleTranslationMethod: ''

@@ -4,34 +4,80 @@ fieldLayouts:
       -
         elements:
           -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            id: null
             instructions: null
             label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
             type: craft\fieldlayoutelements\EntryTitleField
+            warning: null
+            width: 100
           -
             fieldUid: 01fcd9d2-40bb-4f54-a225-7c9b674c3db9 # Plugin
+            instructions: null
+            label: null
             required: true
+            tip: null
             type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
           -
             fieldUid: 69c15f3c-6ae1-4906-879f-495ab5c76102 # Craft License
+            instructions: null
+            label: null
             required: false
+            tip: null
             type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
           -
             fieldUid: 4a4fdb04-6086-4fbd-b79f-1d99cefc9a31 # Domain
+            instructions: null
+            label: null
             required: false
+            tip: null
             type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
           -
             fieldUid: 8965f5ae-4c8e-4529-bfc5-e7345e40d7ce # Auto Renew
+            instructions: null
+            label: null
             required: false
+            tip: null
             type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
           -
             fieldUid: 1f6eaf1e-6f42-4dc2-86cb-62fd3665751a # Notes
+            instructions: null
+            label: null
             required: false
+            tip: null
             type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
         name: License
         sortOrder: 1
 handle: pluginLicense
 hasTitleField: false
 name: 'Plugin License'
-section: bf872170-c29f-4188-9225-90e97869758b
+section: bf872170-c29f-4188-9225-90e97869758b # Licenses
 sortOrder: 1
 titleFormat: 'Plugin License'
+titleTranslationKeyFormat: null
+titleTranslationMethod: ''

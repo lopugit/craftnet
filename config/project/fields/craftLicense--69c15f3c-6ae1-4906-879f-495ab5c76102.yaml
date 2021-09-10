@@ -1,3 +1,4 @@
+columnSuffix: null
 contentColumnType: string
 fieldGroup: 4987fb8d-cf45-4b60-a94f-51c591336558 # License
 handle: craftLicense
@@ -5,13 +6,16 @@ instructions: ''
 name: 'Craft License'
 searchable: true
 settings:
+  allowSelfRelations: false
   limit: ''
-  localizeRelations: ''
+  localizeRelations: false
   selectionLabel: ''
+  showSiteMenu: true
   source: null
   sources:
-    - 'section:bf872170-c29f-4188-9225-90e97869758b'
+    - 'section:bf872170-c29f-4188-9225-90e97869758b' # Licenses
   targetSiteId: null
+  validateRelatedElements: false
   viewMode: null
 translationKeyFormat: null
 translationMethod: site

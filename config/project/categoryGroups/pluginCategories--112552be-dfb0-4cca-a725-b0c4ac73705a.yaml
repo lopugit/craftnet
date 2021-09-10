@@ -1,14 +1,50 @@
+defaultPlacement: end
 fieldLayouts:
   1a87d433-2ba9-4da1-b279-2fd70eb3fbfc:
     tabs:
       -
-        fields:
-          dd2601c5-8443-448c-980a-c9a1ee040ee9: # Icon
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            id: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\TitleField
+            warning: null
+            width: 100
+          -
+            fieldUid: dd2601c5-8443-448c-980a-c9a1ee040ee9 # Icon
+            instructions: null
+            label: null
             required: false
-            sortOrder: 1
-          fdc2e766-f2a8-4ee0-9ad8-9b7d64b8d86b: # Description
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+          -
+            fieldUid: fdc2e766-f2a8-4ee0-9ad8-9b7d64b8d86b # Description
+            instructions: null
+            label: null
             required: false
-            sortOrder: 2
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
         name: Content
         sortOrder: 1
 handle: pluginCategories

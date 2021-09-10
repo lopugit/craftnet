@@ -1,3 +1,4 @@
+columnSuffix: null
 contentColumnType: integer(10)
 fieldGroup: a773b9fb-cbc5-423a-977f-8210c987176c # Store
 handle: limit
@@ -9,7 +10,11 @@ settings:
   defaultValue: null
   max: null
   min: null
+  prefix: null
+  previewCurrency: null
+  previewFormat: decimal
   size: null
+  suffix: null
 translationKeyFormat: null
 translationMethod: none
 type: craft\fields\Number

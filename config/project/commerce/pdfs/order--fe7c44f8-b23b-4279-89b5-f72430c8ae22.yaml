@@ -5,6 +5,5 @@ handle: order
 isDefault: true
 language: orderLanguage
 name: Default
-sortOrder: 0
+sortOrder: 9999
 templatePath: _pdf/order.html
-uid: fe7c44f8-b23b-4279-89b5-f72430c8ae22 # Default

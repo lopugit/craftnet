@@ -1,3 +1,4 @@
+columnSuffix: null
 contentColumnType: string
 fieldGroup: 4987fb8d-cf45-4b60-a94f-51c591336558 # License
 handle: craftEdition
@@ -5,6 +6,7 @@ instructions: ''
 name: 'Craft Edition'
 searchable: true
 settings:
+  optgroups: true
   options:
     -
       __assoc__:
