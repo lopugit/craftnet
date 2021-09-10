@@ -207,8 +207,8 @@ class Module extends \yii\base\Module
             }
         }
 
-        // environment-specific stuff
-        if (\Craft::$app->env === 'dev') {
+        // use Local volumes in dev for web requests
+        if (\Craft::$app->env === 'dev' && !Craft::$app->getRequest()->getIsConsoleRequest()) {
             \Craft::$container->set(S3Volume::class, function($container, $params, $config) {
                 if (empty($config['id'])) {
                     return new S3Volume($config);
