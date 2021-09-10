@@ -57,14 +57,12 @@ return [
     ],
     'stage' => [
         'defaultCookieDomain' => '.craftcms.com',
-        'disabledPlugins' => ['webhooks'],
     ],
     'dev' => [
         'devMode' => true,
         'useCompressedJs' => false,
         'allowUpdates' => true,
         'defaultCookieDomain' => '.craftcms.nitro',
-        'disabledPlugins' => ['webhooks'],
         'enableBasicHttpAuth' => true,
     ],
     'next' => [
@@ -72,6 +70,5 @@ return [
         'useCompressedJs' => false,
         'allowUpdates' => true,
         'defaultCookieDomain' => '.craftcms.next',
-        'disabledPlugins' => ['webhooks'],
     ]
 ];
