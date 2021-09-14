@@ -143,6 +143,7 @@ return [
     'webdnatest.co.uk',
     'websitetestlink.com',
     'website-stage.com',
+    'whatchado.io',
     'wrkcpt.dev',
     'xip.io',
     'yourstruly.space',
