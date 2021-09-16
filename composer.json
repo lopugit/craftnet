@@ -10,7 +10,6 @@
     "stevenmaguire/oauth2-bitbucket": "^2.0",
     "craftcms/commerce": "^3.2.13.2",
     "craftcms/commerce-stripe": "^2.3.0",
-    "layershifter/tld-extract": "^1.2",
     "ddeboer/vatin": "^2.1",
     "moccalotto/eu": "^0.3.0",
     "tecnickcom/tcpdf": "^6.2",
@@ -23,7 +22,8 @@
     "yiisoft/yii2-shell": "^2.0",
     "superbig/craft3-bugsnag": "^2.1",
     "paypal/rest-api-sdk-php": "^1.14",
-    "thamtech/yii2-ratelimiter-advanced": "^0.5"
+    "thamtech/yii2-ratelimiter-advanced": "^0.5",
+    "jeremykendall/php-domain-parser": "^6.1.0"
   },
   "require-dev": {
     "codeception/codeception": "^4.0.0",
@@ -32,8 +32,6 @@
     "codeception/module-phpbrowser": "^1.0.0",
     "codeception/module-rest": "^1.0.0",
     "codeception/module-yii2": "^1.0.0",
-    "fzaninotto/faker": "^1.8",
-    "league/factory-muffin": "^3.0",
     "vlucas/phpdotenv": "^3.0"
   },
   "autoload": {
@@ -45,7 +43,7 @@
   "config": {
     "optimize-autoloader": true,
     "platform": {
-      "php": "7.3"
+      "php": "8.0.8"
     }
   }
 }

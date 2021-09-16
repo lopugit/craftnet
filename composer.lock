@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "31556ef5cba6162d2f8f16c387c7fa9e",
+    "content-hash": "24e9c2e1d891f1d5a7017be6ed449717",
     "packages": [
         {
             "name": "adam-paterson/oauth2-stripe",
@@ -2283,6 +2283,101 @@
             "time": "2020-12-07T12:18:49+00:00"
         },
         {
+            "name": "jeremykendall/php-domain-parser",
+            "version": "6.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jeremykendall/php-domain-parser.git",
+                "reference": "d8b196b6a3b8e714ed4e6c1c8bfeb5532ce89f7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jeremykendall/php-domain-parser/zipball/d8b196b6a3b8e714ed4e6c1c8bfeb5532ce89f7e",
+                "reference": "d8b196b6a3b8e714ed4e6c1c8bfeb5532ce89f7e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-filter": "*",
+                "ext-intl": "*",
+                "ext-json": "*",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "guzzlehttp/guzzle": "^7.0",
+                "guzzlehttp/psr7": "^1.6",
+                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan-phpunit": "^0.12",
+                "phpstan/phpstan-strict-rules": "^0.12",
+                "phpunit/phpunit": "^9.3",
+                "psalm/plugin-phpunit": "^0.15.0",
+                "psr/http-factory": "^1.0",
+                "psr/simple-cache": "^1.0",
+                "symfony/cache": "^v5.0",
+                "vimeo/psalm": "^4.3"
+            },
+            "suggest": {
+                "league/uri": "To parse URL and validate host",
+                "psr/http-client-implementation": "To use the storage functionnality which depends on PSR-18",
+                "psr/http-factory-implementation": "To use the storage functionnality which depends on PSR-17",
+                "psr/simple-cache-implementation": "To use the storage functionnality which depends on PSR-16"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "6.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Pdp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeremy Kendall",
+                    "homepage": "http://about.me/jeremykendall",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Ignace Nyamagana Butera",
+                    "homepage": "http://nyamsprod.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/jeremykendall/php-domain-parser/graphs/contributors"
+                }
+            ],
+            "description": "Public Suffix List and IANA Root Zone Database based Domain parsing implemented in PHP.",
+            "homepage": "https://github.com/jeremykendall/php-domain-parser",
+            "keywords": [
+                "PSL",
+                "Public Suffix List",
+                "Top Level Domains",
+                "domain parsing",
+                "iana",
+                "icann",
+                "idn",
+                "tld"
+            ],
+            "support": {
+                "issues": "https://github.com/jeremykendall/php-domain-parser/issues",
+                "source": "https://github.com/jeremykendall/php-domain-parser"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/nyamsprod",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-06-19T07:49:28+00:00"
+        },
+        {
             "name": "justinrainbow/json-schema",
             "version": "5.2.11",
             "source": {
@@ -2616,192 +2711,33 @@
             "time": "2021-09-03T17:53:30+00:00"
         },
         {
-            "name": "layershifter/tld-database",
-            "version": "1.0.69",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/layershifter/TLDDatabase.git",
-                "reference": "7423c7acdc5147268fb856f532a5d8875f6fe41e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/layershifter/TLDDatabase/zipball/7423c7acdc5147268fb856f532a5d8875f6fe41e",
-                "reference": "7423c7acdc5147268fb856f532a5d8875f6fe41e",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "layershifter/tld-support": "^1.0.0",
-                "php": "^5.5.0 || ^7.0"
-            },
-            "require-dev": {
-                "codeclimate/php-test-reporter": "dev-master",
-                "mikey179/vfsstream": "^1.6",
-                "phpmd/phpmd": "@stable",
-                "phpunit/phpunit": "^4.8 || ^5.0",
-                "squizlabs/php_codesniffer": "~2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "LayerShifter\\TLDDatabase\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Alexander Fedyashov",
-                    "email": "a@fedyashov.com"
-                }
-            ],
-            "description": "Database abstraction for Public Suffix List",
-            "keywords": [
-                "PSL",
-                "Public Suffix List",
-                "domain database",
-                "tld database"
-            ],
-            "support": {
-                "issues": "https://github.com/layershifter/TLDDatabase/issues",
-                "source": "https://github.com/layershifter/TLDDatabase/tree/1.0.69"
-            },
-            "time": "2019-08-04T10:03:36+00:00"
-        },
-        {
-            "name": "layershifter/tld-extract",
-            "version": "1.2.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/layershifter/TLDExtract.git",
-                "reference": "913f82f3d84d314350095aac9dab46df2fa3555d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/layershifter/TLDExtract/zipball/913f82f3d84d314350095aac9dab46df2fa3555d",
-                "reference": "913f82f3d84d314350095aac9dab46df2fa3555d",
-                "shasum": ""
-            },
-            "require": {
-                "layershifter/tld-database": "^1.0",
-                "layershifter/tld-support": "^1.1",
-                "php": "^5.5.0 || ^7.0",
-                "true/punycode": "^2.1.1"
-            },
-            "require-dev": {
-                "phpmd/phpmd": "@stable",
-                "phpunit/phpunit": "^4.8 || ^5.0",
-                "squizlabs/php_codesniffer": "~2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/static.php"
-                ],
-                "psr-4": {
-                    "LayerShifter\\TLDExtract\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Alexander Fedyashov",
-                    "email": "a@fedyashov.com"
-                }
-            ],
-            "description": "TLDExtract, library for extracting parts of domain, e.q. domain parser",
-            "keywords": [
-                "TLDExtract",
-                "domain parser"
-            ],
-            "support": {
-                "issues": "https://github.com/layershifter/TLDExtract/issues",
-                "source": "https://github.com/layershifter/TLDExtract/tree/master"
-            },
-            "abandoned": true,
-            "time": "2018-09-28T10:05:58+00:00"
-        },
-        {
-            "name": "layershifter/tld-support",
-            "version": "1.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/layershifter/TLDSupport.git",
-                "reference": "9b9eb2350db82239289f4e6eb250a2fe4865b0db"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/layershifter/TLDSupport/zipball/9b9eb2350db82239289f4e6eb250a2fe4865b0db",
-                "reference": "9b9eb2350db82239289f4e6eb250a2fe4865b0db",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5",
-                "symfony/polyfill-mbstring": "^1.2"
-            },
-            "require-dev": {
-                "codeclimate/php-test-reporter": "dev-master",
-                "phpmd/phpmd": "@stable",
-                "phpunit/phpunit": "4.8.*",
-                "squizlabs/php_codesniffer": "2.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "LayerShifter\\TLDSupport\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Alexander Fedyashov",
-                    "email": "a@fedyashov.com"
-                }
-            ],
-            "description": "Support package for TLDDatabase and TLDExtract",
-            "support": {
-                "issues": "https://github.com/layershifter/TLDSupport/issues",
-                "source": "https://github.com/layershifter/TLDSupport/tree/master"
-            },
-            "abandoned": true,
-            "time": "2016-06-18T12:28:04+00:00"
-        },
-        {
             "name": "lcobucci/jwt",
-            "version": "3.4.5",
+            "version": "3.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lcobucci/jwt.git",
-                "reference": "511629a54465e89a31d3d7e4cf0935feab8b14c1"
+                "reference": "82be04b4753f8b7693b62852b7eab30f97524f9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/511629a54465e89a31d3d7e4cf0935feab8b14c1",
-                "reference": "511629a54465e89a31d3d7e4cf0935feab8b14c1",
+                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/82be04b4753f8b7693b62852b7eab30f97524f9b",
+                "reference": "82be04b4753f8b7693b62852b7eab30f97524f9b",
                 "shasum": ""
             },
             "require": {
-                "ext-mbstring": "*",
                 "ext-openssl": "*",
-                "php": "^5.6 || ^7.0"
+                "php": ">=5.5"
             },
             "require-dev": {
+                "mdanter/ecc": "~0.3.1",
                 "mikey179/vfsstream": "~1.5",
                 "phpmd/phpmd": "~2.2",
                 "phpunit/php-invoker": "~1.1",
-                "phpunit/phpunit": "^5.7 || ^7.3",
+                "phpunit/phpunit": "~4.5",
                 "squizlabs/php_codesniffer": "~2.3"
             },
             "suggest": {
-                "lcobucci/clock": "*"
+                "mdanter/ecc": "Required to use Elliptic Curves based algorithms."
             },
             "type": "library",
             "extra": {
@@ -2812,12 +2748,7 @@
             "autoload": {
                 "psr-4": {
                     "Lcobucci\\JWT\\": "src"
-                },
-                "files": [
-                    "compat/class-aliases.php",
-                    "compat/json-exception-polyfill.php",
-                    "compat/lcobucci-clock-polyfill.php"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2837,19 +2768,9 @@
             ],
             "support": {
                 "issues": "https://github.com/lcobucci/jwt/issues",
-                "source": "https://github.com/lcobucci/jwt/tree/3.4.5"
+                "source": "https://github.com/lcobucci/jwt/tree/3.2"
             },
-            "funding": [
-                {
-                    "url": "https://github.com/lcobucci",
-                    "type": "github"
-                },
-                {
-                    "url": "https://www.patreon.com/lcobucci",
-                    "type": "patreon"
-                }
-            ],
-            "time": "2021-02-16T09:40:01+00:00"
+            "time": "2018-11-11T12:22:26+00:00"
         },
         {
             "name": "league/event",
@@ -9053,31 +8974,42 @@
             "time": "2020-11-10T18:47:58+00:00"
         },
         {
-            "name": "fzaninotto/faker",
-            "version": "v1.9.2",
+            "name": "fakerphp/faker",
+            "version": "v1.16.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "848d8125239d7dbf8ab25cb7f054f1a630e68c2e"
+                "url": "https://github.com/FakerPHP/Faker.git",
+                "reference": "271d384d216e5e5c468a6b28feedf95d49f83b35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/848d8125239d7dbf8ab25cb7f054f1a630e68c2e",
-                "reference": "848d8125239d7dbf8ab25cb7f054f1a630e68c2e",
+                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/271d384d216e5e5c468a6b28feedf95d49f83b35",
+                "reference": "271d384d216e5e5c468a6b28feedf95d49f83b35",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3.3 || ^7.0"
+                "php": "^7.1 || ^8.0",
+                "psr/container": "^1.0 || ^2.0",
+                "symfony/deprecation-contracts": "^2.2"
+            },
+            "conflict": {
+                "fzaninotto/faker": "*"
             },
             "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4.1",
                 "ext-intl": "*",
-                "phpunit/phpunit": "^4.8.35 || ^5.7",
-                "squizlabs/php_codesniffer": "^2.9.2"
+                "symfony/phpunit-bridge": "^4.4 || ^5.2"
+            },
+            "suggest": {
+                "ext-curl": "Required by Faker\\Provider\\Image to download images.",
+                "ext-dom": "Required by Faker\\Provider\\HtmlLorem for generating random HTML.",
+                "ext-iconv": "Required by Faker\\Provider\\ru_RU\\Text::realText() for generating real Russian text.",
+                "ext-mbstring": "Required for multibyte Unicode string functionality."
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.9-dev"
+                    "dev-main": "v1.16-dev"
                 }
             },
             "autoload": {
@@ -9101,11 +9033,10 @@
                 "fixtures"
             ],
             "support": {
-                "issues": "https://github.com/fzaninotto/Faker/issues",
-                "source": "https://github.com/fzaninotto/Faker/tree/v1.9.2"
+                "issues": "https://github.com/FakerPHP/Faker/issues",
+                "source": "https://github.com/FakerPHP/Faker/tree/v1.16.0"
             },
-            "abandoned": true,
-            "time": "2020-12-11T09:56:16+00:00"
+            "time": "2021-09-06T14:53:37+00:00"
         },
         {
             "name": "league/factory-muffin",
@@ -9187,29 +9118,29 @@
         },
         {
             "name": "league/factory-muffin-faker",
-            "version": "v2.2.2",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/factory-muffin-faker.git",
-                "reference": "07f55317db9720cd750a196fa8bc41142d8ce0ca"
+                "reference": "258068c840e8fdc45d1cb1636a0890e92f2e864a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/factory-muffin-faker/zipball/07f55317db9720cd750a196fa8bc41142d8ce0ca",
-                "reference": "07f55317db9720cd750a196fa8bc41142d8ce0ca",
+                "url": "https://api.github.com/repos/thephpleague/factory-muffin-faker/zipball/258068c840e8fdc45d1cb1636a0890e92f2e864a",
+                "reference": "258068c840e8fdc45d1cb1636a0890e92f2e864a",
                 "shasum": ""
             },
             "require": {
-                "fzaninotto/faker": "^1.6",
+                "fakerphp/faker": "^1.9.1",
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.36|^5.6.3"
+                "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev"
+                    "dev-master": "2.3-dev"
                 }
             },
             "autoload": {
@@ -9236,7 +9167,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/factory-muffin-faker/issues",
-                "source": "https://github.com/thephpleague/factory-muffin-faker/tree/master"
+                "source": "https://github.com/thephpleague/factory-muffin-faker/tree/v2.3.0"
             },
             "funding": [
                 {
@@ -9248,7 +9179,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-04-12T21:50:53+00:00"
+            "time": "2020-12-13T15:53:28+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -11569,7 +11500,7 @@
     "platform": [],
     "platform-dev": [],
     "platform-overrides": {
-        "php": "7.3"
+        "php": "8.0.8"
     },
     "plugin-api-version": "2.1.0"
 }
