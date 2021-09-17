@@ -87,6 +87,16 @@ class CmsLicenseManager extends Component
             $list = Rules::fromPath(__DIR__.'/public_suffix_list.dat');
             Craft::$app->getCache()->set('publicSuffixList', $list, 1209600);
         }
+
+        // ignore if it's a nonstandard port
+        $port = parse_url($url, PHP_URL_PORT);
+        if ($port) {
+            if ($port != 80 && $port != 443) {
+                return null;
+            }
+            $url = mb_substr($url, 0, strpos($url, ':'));
+        }
+
         $result = $list->resolve($url);
 
         // Account for things like "localhost" - one word segments
@@ -108,11 +118,6 @@ class CmsLicenseManager extends Component
             return $domain;
         }
 
-        // For "fake" tlds like .nitro and "non-public" ones like "herokuapp.com"
-        if (!$result->suffix()->isICANN()) {
-            return null;
-        }
-
         // ignore if it's a dev domain
         if (
             in_array($domain, $this->devDomains, true) ||
@@ -121,16 +126,20 @@ class CmsLicenseManager extends Component
             return null;
         }
 
-        // ignore if it's a nonstandard port
-        $port = parse_url($url, PHP_URL_PORT);
-        if ($port && $port != 80 && $port != 443) {
-            return null;
-        }
-
         // Check if any of the subdomains sound dev-y
         $subdomain = $result->subDomain()->toString();
         if ($subdomain && array_intersect(preg_split('/\b/', $subdomain), $this->devSubdomainWords)) {
             return null;
+        }
+
+        // For "fake" tlds like .nitro
+        if (!$result->suffix()->isICANN()) {
+            // ignore if it's a private domain, unless we consider its suffix to be public (e.g. uk.com)
+            if (!in_array($result->suffix()->toString(), $this->publicDomainSuffixes, true)) {
+                if ($result->domain()->toString() !== $result->suffix()->domain()->toString()) {
+                    return null;
+                }
+            }
         }
 
         return $domain;

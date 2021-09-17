@@ -30,6 +30,7 @@ class CmsLicenseManagerTest extends Unit
             ['22.2.55.15', null],
             ['1', null],
             ['foobar', null],
+            ['foobar.test', null],
             ['foobar.test', 'foobar.test', true],
             ['foobar.com:123', null],
             ['127.0.0.1:123', null],
@@ -63,7 +64,9 @@ class CmsLicenseManagerTest extends Unit
             ['craftdemos.io', null],
             ['ngrok.io', null],
             ['herokuapp.com', null],
-            ['mysite.herokuapp.com', null],
+            ['site.herokuapp.com', null],
+            ['dev.site.kr.com', null],
+            ['site.kr.com', 'site.kr.com'],
         ];
     }
 }
