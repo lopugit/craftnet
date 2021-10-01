@@ -14,9 +14,9 @@ return [
     'sandbox',
     'stage',
     'staging',
+    'stg',
     'systest',
     'test',
     'testing',
     'uat',
-    'stg',
 ];
