@@ -52,7 +52,7 @@ return [
         'testToEmailAddress' => App::env('TEST_EMAIL') ?: null,
     ],
     'prod' => [
-        'defaultCookieDomain' => '.craftcms.com',
+        'defaultCookieDomain' => '.craft-sandbox.com',
         'runQueueAutomatically' => false,
     ],
     'stage' => [
