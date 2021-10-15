@@ -24,6 +24,7 @@ switch ($_SERVER['HTTP_HOST']) {
     case 'id.craftcms.nitro':
     case 'id.craftcms.next':
     case 'staging.id.craftcms.com':
+    case 'craftnet-prod-php80.us-west-2.elasticbeanstalk.com':
         define('CRAFT_SITE', 'craftId');
         break;
     case 'plugins.craftcms.com':
