@@ -48,6 +48,7 @@ return [
     'fusiondgdev.com',
     'gbdev.co',
     'gcx.dev',
+    'gemstaging.com',
     'ghdev.xyz',
     'gitpod.io',
     'gw-staging.com',
