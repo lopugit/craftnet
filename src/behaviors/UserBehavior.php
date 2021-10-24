@@ -185,7 +185,6 @@ class UserBehavior extends Behavior
             $request->getIsSiteRequest() &&
             $request->getIsPost() &&
             ($request->getBodyParam('fields.enableShowcaseFeatures') || $request->getBodyParam('fields.enablePartnerFeatures'))
-
         ) {
             $event->isValid = false;
         }
