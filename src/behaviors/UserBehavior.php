@@ -177,7 +177,7 @@ class UserBehavior extends Behavior
     public function beforeSave(ModelEvent $event)
     {
         $currentUser = Craft::$app->getUser()->getIdentity();
-        $isAdmin = $currentUser->isInGroup('admins') || $currentUser->admin;
+        $isAdmin = $currentUser && ($currentUser->isInGroup('admins') || $currentUser->admin);
         $request = Craft::$app->getRequest();
 
         if (
