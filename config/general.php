@@ -11,7 +11,7 @@ use craft\helpers\App;
 return [
     '*' => [
         'aliases' => [
-            '@nodeModules' => dirname(__FILE__) . '/../node_modules'
+            '@nodeModules' => dirname(__DIR__) . '/node_modules',
         ],
         'allowUpdates' => false,
         'devMode' => isset($_REQUEST['secret']) && $_REQUEST['secret'] === App::env('DEV_MODE_SECRET'),
