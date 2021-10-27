@@ -11,6 +11,7 @@ use craft\helpers\App;
 return [
     '*' => [
         'aliases' => [
+            '@webroot' => dirname(__DIR__) . '/web',
             '@nodeModules' => dirname(__DIR__) . '/node_modules',
         ],
         'allowUpdates' => false,
