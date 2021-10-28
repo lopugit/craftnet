@@ -180,11 +180,17 @@ class UserBehavior extends Behavior
         $isAdmin = $currentUser && ($currentUser->isInGroup('admins') || $currentUser->admin);
         $request = Craft::$app->getRequest();
 
+        if ($currentUser) {
+            $existingPartnerStatus = $currentUser->enablePartnerFeatures;
+            $existingShowcaseStatus = $currentUser->enableShowcaseFeatures;
+        }
+
         if (
+            $currentUser &&
             !$isAdmin &&
             $request->getIsSiteRequest() &&
             $request->getIsPost() &&
-            ($request->getBodyParam('fields.enableShowcaseFeatures') || $request->getBodyParam('fields.enablePartnerFeatures'))
+            (((bool)$request->getBodyParam('fields.enableShowcaseFeatures') !== $existingShowcaseStatus) || ((bool)$request->getBodyParam('fields.enablePartnerFeatures') !== $existingPartnerStatus))
         ) {
             $event->isValid = false;
         }
