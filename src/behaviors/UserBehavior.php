@@ -6,6 +6,7 @@ use Craft;
 use craft\base\Element;
 use craft\elements\User;
 use craft\events\DefineRulesEvent;
+use craft\events\ModelEvent;
 use craftnet\db\Table;
 use craftnet\developers\EmailVerifier;
 use craftnet\developers\FundsManager;
@@ -63,6 +64,7 @@ class UserBehavior extends Behavior
         return [
             Element::EVENT_BEFORE_VALIDATE => [$this, 'beforeValidate'],
             Element::EVENT_DEFINE_RULES => [$this, 'defineRules'],
+            Element::EVENT_BEFORE_SAVE => [$this, 'beforeSave'],
             Element::EVENT_AFTER_SAVE => [$this, 'afterSave'],
         ];
     }
@@ -167,6 +169,31 @@ class UserBehavior extends Behavior
     public function defineRules(DefineRulesEvent $event): void
     {
         $event->rules[] = ['payPalEmail', 'email'];
+    }
+
+    /**
+     * Handles pre-user-save stuff
+     */
+    public function beforeSave(ModelEvent $event)
+    {
+        $currentUser = Craft::$app->getUser()->getIdentity();
+        $isAdmin = $currentUser && ($currentUser->isInGroup('admins') || $currentUser->admin);
+        $request = Craft::$app->getRequest();
+
+        if ($currentUser) {
+            $existingPartnerStatus = $currentUser->enablePartnerFeatures;
+            $existingShowcaseStatus = $currentUser->enableShowcaseFeatures;
+        }
+
+        if (
+            $currentUser &&
+            !$isAdmin &&
+            $request->getIsSiteRequest() &&
+            $request->getIsPost() &&
+            (((bool)$request->getBodyParam('fields.enableShowcaseFeatures') !== $existingShowcaseStatus) || ((bool)$request->getBodyParam('fields.enablePartnerFeatures') !== $existingPartnerStatus))
+        ) {
+            $event->isValid = false;
+        }
     }
 
     /**

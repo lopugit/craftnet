@@ -19,25 +19,7 @@ return [
                         'class' => craftnet\cms\CmsLicenseManager::class,
                         'devDomains' => require __DIR__ . '/dev-domains.php',
                         'publicDomainSuffixes' => require __DIR__ . '/public-domain-suffixes.php',
-                        'devSubdomainWords' => [
-                            'acc',
-                            'acceptance',
-                            'acceptatie',
-                            'craftdemo',
-                            'dev',
-                            'integration',
-                            'loc',
-                            'local',
-                            'preprod',
-                            'qa',
-                            'sandbox',
-                            'stage',
-                            'staging',
-                            'systest',
-                            'test',
-                            'testing',
-                            'uat',
-                        ]
+                        'devSubdomainWords' => require __DIR__ . '/dev-subdomain-keywords.php'
                     ],
                     'invoiceManager' => [
                         'class' => craftnet\invoices\InvoiceManager::class,

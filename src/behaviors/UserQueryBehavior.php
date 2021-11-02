@@ -18,14 +18,14 @@ class UserQueryBehavior extends Behavior
     public function events()
     {
         return [
-            ElementQuery::EVENT_AFTER_PREPARE => 'afterPrepare',
+            ElementQuery::EVENT_BEFORE_PREPARE => 'beforePrepare',
         ];
     }
 
     /**
      * Prepares the user query.
      */
-    public function afterPrepare()
+    public function beforePrepare()
     {
         if ($this->owner->select === ['COUNT(*)']) {
             return;
