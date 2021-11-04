@@ -26,6 +26,7 @@ return [
     'craftdemos.io',
     'crudecode.com',
     'ddev.site',
+    'deltablue.io',
     'designandbuildsandbox.com',
     'development-client-server.com',
     'devhandle.com',
