@@ -171,8 +171,8 @@ class CmsLicenseManager extends Component
     public function getLicensesByOrder(int $orderId): array
     {
         $results = $this->_createLicenseQuery()
-            ->innerJoin(Table::CMSLICENSES_LINEITEMS . ' l_li', '[[l_li.licenseId]] = [[l.id]]')
-            ->innerJoin(CommerceTable::LINEITEMS . ' li', '[[li.id]] = [[l_li.lineItemId]]')
+            ->innerJoin(['l_li' => Table::CMSLICENSES_LINEITEMS], '[[l_li.licenseId]] = [[l.id]]')
+            ->innerJoin(['li' => CommerceTable::LINEITEMS], '[[li.id]] = [[l_li.lineItemId]]')
             ->where(['li.orderId' => $orderId])
             ->all();
 
@@ -727,7 +727,7 @@ class CmsLicenseManager extends Component
                 'l.dateUpdated',
                 'l.uid',
             ])
-            ->from([Table::CMSLICENSES . ' l']);
+            ->from(['l' => Table::CMSLICENSES]);
 
         return $query;
     }

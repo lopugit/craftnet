@@ -134,11 +134,11 @@ class SaleManager extends Component
                 'elements.type AS purchasableType',
                 'licenses.editionId AS editionId',
             ])
-            ->from([Table::PLUGINLICENSES_LINEITEMS . ' licenses_items'])
-            ->innerJoin(CommerceTable::LINEITEMS . ' lineitems', '[[lineitems.id]] = [[licenses_items.lineItemId]]')
-            ->innerJoin(CommerceTable::ORDERS . ' orders', '[[orders.id]] = [[lineitems.orderId]]')
-            ->innerJoin(Table::PLUGINLICENSES . ' licenses', '[[licenses.id]] = [[licenses_items.licenseId]]')
-            ->innerJoin(Table::PLUGINS . ' plugins', '[[plugins.id]] = [[licenses.pluginId]]')
+            ->from(['licenses_items' => Table::PLUGINLICENSES_LINEITEMS])
+            ->innerJoin(['lineitems' => CommerceTable::LINEITEMS], '[[lineitems.id]] = [[licenses_items.lineItemId]]')
+            ->innerJoin(['orders' => CommerceTable::ORDERS], '[[orders.id]] = [[lineitems.orderId]]')
+            ->innerJoin(['licenses' => Table::PLUGINLICENSES], '[[licenses.id]] = [[licenses_items.licenseId]]')
+            ->innerJoin(['plugins' => Table::PLUGINS], '[[plugins.id]] = [[licenses.pluginId]]')
             ->leftJoin(CraftTable::USERS, '[[users.id]] = [[licenses.ownerId]]')
             ->leftJoin(CraftTable::ELEMENTS, '[[elements.id]] = [[lineitems.purchasableId]]')
             ->where(['plugins.developerId' => $owner->id])

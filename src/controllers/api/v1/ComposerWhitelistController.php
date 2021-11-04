@@ -103,7 +103,7 @@ class ComposerWhitelistController extends BaseApiController
             //->select(['pd.name', 'pd.constraints'])
             ->select(['pd.name'])
             ->distinct()
-            ->from([Table::PACKAGEDEPS . ' pd'])
+            ->from(['pd' => Table::PACKAGEDEPS])
             ->where([
                 'and',
                 ['not in', 'pd.name', array_keys($this->_ignoreDeps)],
@@ -138,7 +138,7 @@ class ComposerWhitelistController extends BaseApiController
 
         // Add their deps to the mix as well
         $deps = $this->_createDepQuery()
-            ->innerJoin(Table::PACKAGES . ' p', '[[p.id]] = [[pd.packageId]]')
+            ->innerJoin(['p' => Table::PACKAGES], '[[p.id]] = [[pd.packageId]]')
             ->andWhere(['p.name' => $deps])
             ->column();
 

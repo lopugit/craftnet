@@ -55,11 +55,11 @@ class PartnerCapabilitiesQuery extends Query
     {
         $this
             ->select(['pc.id id', 'pc.title title'])
-            ->from(Table::PARTNERCAPABILITIES . ' pc');
+            ->from(['pc' => Table::PARTNERCAPABILITIES]);
 
         if (isset($this->_partnerId)) {
             $this
-                ->innerJoin(Table::PARTNERS_PARTNERCAPABILITIES . ' p_pc', '[[p_pc.partnercapabilitiesId]] = [[pc.id]]')
+                ->innerJoin(['p_pc' => Table::PARTNERS_PARTNERCAPABILITIES], '[[p_pc.partnercapabilitiesId]] = [[pc.id]]')
                 ->where(['p_pc.partnerId' => $this->_partnerId])
                 ->andWhere('[[pc.id]] = [[p_pc.partnercapabilitiesId]]');
         }

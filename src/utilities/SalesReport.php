@@ -106,7 +106,7 @@ class SalesReport extends Utility
         foreach ($orders as $order) {
             $payments = (new Query())
                 ->select(['*'])
-                ->from([Table::DEVELOPERLEDGER . ' dl'])
+                ->from(['dl' => Table::DEVELOPERLEDGER])
                 ->where(['ilike', 'note', $order['number']])
                 ->orderBy('dateCreated')
                 ->all();

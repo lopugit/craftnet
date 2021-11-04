@@ -226,7 +226,7 @@ class PluginQuery extends ElementQuery
 
         if ($this->categoryId) {
             $this->subQuery
-                ->innerJoin([Table::PLUGINCATEGORIES . ' pc'], '[[pc.pluginId]] = [[elements.id]]')
+                ->innerJoin(['pc' => Table::PLUGINCATEGORIES], '[[pc.pluginId]] = [[elements.id]]')
                 ->andWhere(Db::parseParam('pc.categoryId', $this->categoryId));
         }
 
@@ -234,8 +234,8 @@ class PluginQuery extends ElementQuery
             $maxCol = $this->preferStable ? 'stableOrder' : 'order';
             $latestReleaseQuery = (new Query())
                 ->select(["max([[s_vo.{$maxCol}]])"])
-                ->from([Table::PLUGINVERSIONORDER . ' s_vo'])
-                ->innerJoin([Table::PACKAGEVERSIONS . ' s_v'], '[[s_v.id]] = [[s_vo.versionId]]')
+                ->from(['s_vo' => Table::PLUGINVERSIONORDER])
+                ->innerJoin(['s_v' => Table::PACKAGEVERSIONS], '[[s_v.id]] = [[s_vo.versionId]]')
                 ->where('[[s_v.packageId]] = [[craftnet_plugins.packageId]]')
                 ->groupBy(['s_v.packageId']);
 
@@ -245,7 +245,7 @@ class PluginQuery extends ElementQuery
                 $cmsRelease = $packageManager->getRelease('craftcms/cms', $this->cmsVersion);
                 if ($cmsRelease) {
                     $latestReleaseQuery
-                        ->innerJoin([Table::PLUGINVERSIONCOMPAT . ' s_vc'], '[[s_vc.pluginVersionId]] = [[s_v.id]]')
+                        ->innerJoin(['s_vc' => Table::PLUGINVERSIONCOMPAT], '[[s_vc.pluginVersionId]] = [[s_v.id]]')
                         ->andWhere(['s_vc.cmsVersionId' => $cmsRelease->id]);
                 }
             }
@@ -257,20 +257,23 @@ class PluginQuery extends ElementQuery
             }
 
             $this->subQuery
-                ->addSelect(['v.version as latestVersion', 'v.time as latestVersionTime'])
-                ->innerJoin([Table::PACKAGEVERSIONS . ' v'], '[[v.packageId]] = [[craftnet_plugins.packageId]]')
-                ->innerJoin([Table::PLUGINVERSIONORDER . ' vo'], '[[vo.versionId]] = [[v.id]]')
+                ->addSelect([
+                    'latestVersion' => 'v.version',
+                    'latestVersionTime' => 'v.time',
+                ])
+                ->innerJoin(['v' => Table::PACKAGEVERSIONS], '[[v.packageId]] = [[craftnet_plugins.packageId]]')
+                ->innerJoin(['vo' => Table::PLUGINVERSIONORDER], '[[vo.versionId]] = [[v.id]]')
                 ->andWhere(["vo.{$maxCol}" => $latestReleaseQuery]);
             $this->query
-                ->addSelect(['latestVersion', 'latestVersionTime']);
+                ->addSelect(['latestVersionId', 'latestVersion', 'latestVersionTime']);
         }
 
         if ($this->withTotalPurchases) {
             $totalPurchasesSubquery = (new Query())
                 ->select(['count(*)'])
-                ->from([Table::PLUGINS . ' p'])
-                ->innerJoin(Table::PLUGINLICENSES . ' pl', '[[pl.pluginId]] = [[p.id]]')
-                ->innerJoin(Table::PLUGINLICENSES_LINEITEMS . ' pl_li', '[[pl_li.licenseId]] = [[pl.id]]')
+                ->from(['p' => Table::PLUGINS])
+                ->innerJoin(['pl' => Table::PLUGINLICENSES], '[[pl.pluginId]] = [[p.id]]')
+                ->innerJoin(['pl_li' => Table::PLUGINLICENSES_LINEITEMS], '[[pl_li.licenseId]] = [[pl.id]]')
                 ->where('[[p.id]] = [[craftnet_plugins.id]]');
 
             if ($this->totalPurchasesSince) {

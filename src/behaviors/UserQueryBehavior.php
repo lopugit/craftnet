@@ -39,7 +39,7 @@ class UserQueryBehavior extends Behavior
             'developers.apiToken',
         ]);
 
-        $this->owner->query->leftJoin(Table::DEVELOPERS . ' developers', '[[developers.id]] = [[users.id]]');
-        $this->owner->subQuery->leftJoin(Table::DEVELOPERS . ' developers', '[[developers.id]] = [[users.id]]');
+        $this->owner->query->leftJoin(['developers' => Table::DEVELOPERS], '[[developers.id]] = [[users.id]]');
+        $this->owner->subQuery->leftJoin(['developers' => Table::DEVELOPERS], '[[developers.id]] = [[users.id]]');
     }
 }

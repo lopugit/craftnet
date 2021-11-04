@@ -32,7 +32,7 @@ class PartnerLocationsQuery extends Query
     {
         $this
             ->select('*')
-            ->from(Table::PARTNERLOCATIONS . ' l');
+            ->from(['l' => Table::PARTNERLOCATIONS]);
 
         if (isset($this->_partnerId)) {
             $this->where(['l.partnerId' => $this->_partnerId]);
