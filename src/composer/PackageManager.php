@@ -405,6 +405,19 @@ class PackageManager extends Component
     }
 
     /**
+     * @param int $versionId The package version ID
+     * @return string|null
+     */
+    public function getPhpConstraintByVersionId(int $versionId): ?string
+    {
+        return (new Query())
+            ->select(['constraints'])
+            ->from([Table::PACKAGEDEPS])
+            ->where(['versionId' => $versionId, 'name' => 'php'])
+            ->scalar() ?: null;
+    }
+
+    /**
      * @param string $name The dependency package name
      * @param string $version The dependency package version
      * @return bool Whether any managed packages require this dependency/version

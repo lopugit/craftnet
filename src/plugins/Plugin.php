@@ -332,6 +332,11 @@ class Plugin extends Element
     public $changelogPath;
 
     /**
+     * @var int|null The ID of the latest version available for the plugin
+     */
+    public $latestVersionId;
+
+    /**
      * @var string|null The latest version available for the plugin
      */
     public $latestVersion;

@@ -3,6 +3,7 @@
 namespace craftnet\controllers\api;
 
 use Composer\Semver\Comparator;
+use Composer\Semver\Semver;
 use Craft;
 use craft\elements\User;
 use craft\errors\InvalidPluginException;
@@ -81,6 +82,11 @@ abstract class BaseApiController extends Controller
      * @var string|null The user’s email
      */
     public $email;
+
+    /**
+     * @var string|null The platform versions.
+     */
+    public $platformVersions;
 
     /**
      * @var string|null The installed Craft version.
@@ -190,6 +196,16 @@ abstract class BaseApiController extends Controller
             'x-craft-plugin-license-statuses',
             'x-craft-plugin-licenses',
         ]));
+
+        // was platform info provided?
+        if ($checkCraftHeaders && $requestHeaders->has('X-Craft-Platform')) {
+            foreach (explode(',', $requestHeaders->get('X-Craft-Platform')) as $info) {
+                [$name, $installed] = array_pad(explode(':', $info, 2), 2, null);
+                if ($installed !== null) {
+                    $this->platformVersions[$name] = $installed;
+                }
+            }
+        }
 
         // was system info provided?
         if ($checkCraftHeaders && $requestHeaders->has('X-Craft-System')) {
@@ -875,6 +891,18 @@ EOL;
             $replacement = $plugin->getReplacement();
             $data['replacementName'] = $replacement->name ?? null;
             $data['replacementHandle'] = $replacement->handle ?? null;
+
+            // PHP version
+            if (
+                isset($this->platformVersions['php']) &&
+                $plugin->latestVersionId &&
+                ($phpConstraint = Module::getInstance()->getPackageManager()->getPhpConstraintByVersionId($plugin->latestVersionId))
+            ) {
+                $data['phpVersionCompatible'] = Semver::satisfies($this->platformVersions['php'], $phpConstraint);
+                $data['phpConstraint'] = $phpConstraint;
+            } else {
+                $data['phpVersionCompatible'] = true;
+            }
         }
 
         return $data;

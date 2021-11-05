@@ -258,6 +258,7 @@ class PluginQuery extends ElementQuery
 
             $this->subQuery
                 ->addSelect([
+                    'latestVersionId' => 'v.id',
                     'latestVersion' => 'v.version',
                     'latestVersionTime' => 'v.time',
                 ])
