@@ -893,19 +893,46 @@ EOL;
             $data['replacementHandle'] = $replacement->handle ?? null;
 
             // PHP version
-            if (
-                isset($this->platformVersions['php']) &&
-                $plugin->latestVersionId &&
-                ($phpConstraint = Module::getInstance()->getPackageManager()->getPhpConstraintByVersionId($plugin->latestVersionId))
-            ) {
-                $data['phpVersionCompatible'] = Semver::satisfies($this->platformVersions['php'], $phpConstraint);
+            if (!$data['phpVersionCompatible'] = $this->_checkPhpRequirement($plugin->latestVersionId, $phpConstraint, $incompatiblePhpVersion)) {
                 $data['phpConstraint'] = $phpConstraint;
-            } else {
-                $data['phpVersionCompatible'] = true;
+                $data['incompatiblePhpVersion'] = $incompatiblePhpVersion;
             }
         }
 
         return $data;
+    }
+
+    /**
+     * Returns whether the Craft install appears to be compatible with the given package version.
+     *
+     * @param int $versionId
+     * @param string|null $phpConstraint
+     * @param string|null $incompatiblePhpVersion
+     * @return bool
+     */
+    private function _checkPhpRequirement(?int $versionId, ?string &$phpConstraint, ?string &$incompatiblePhpVersion = null): bool
+    {
+        if (!$versionId || !isset($this->platformVersions['php']) && !isset($this->platformVersions['composer-php'])) {
+            return true;
+        }
+
+        $phpConstraint = Module::getInstance()->getPackageManager()->getPhpConstraintByVersionId($versionId);
+
+        if (!$phpConstraint) {
+            return true;
+        }
+
+        if (isset($this->platformVersions['php']) && !Semver::satisfies($this->platformVersions['php'], $phpConstraint)) {
+            $incompatiblePhpVersion = 'php';
+            return false;
+        }
+
+        if (!Semver::satisfies($this->platformVersions['composer-php'], $phpConstraint)) {
+            $incompatiblePhpVersion = 'composer-php';
+            return false;
+        }
+
+        return true;
     }
 
     /**
