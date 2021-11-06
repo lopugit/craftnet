@@ -927,7 +927,7 @@ EOL;
             return false;
         }
 
-        if (!Semver::satisfies($this->platformVersions['composer-php'], $phpConstraint)) {
+        if (isset($this->platformVersions['composer-php']) && !Semver::satisfies($this->platformVersions['composer-php'], $phpConstraint)) {
             $incompatiblePhpVersion = 'composer-php';
             return false;
         }
