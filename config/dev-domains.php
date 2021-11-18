@@ -149,4 +149,5 @@ return [
     'wrkcpt.dev',
     'xip.io',
     'yourstruly.space',
+    'klarplan.dev',
 ];
