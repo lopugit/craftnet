@@ -64,6 +64,7 @@ return [
     'inspireserverc.com',
     'isted.dev',
     'joshbutts.dev',
+    'klarplan.dev',
     'kreisvier.com',
     'kreisvier.dev',
     'lewisjenkins.dev',
@@ -149,5 +150,4 @@ return [
     'wrkcpt.dev',
     'xip.io',
     'yourstruly.space',
-    'klarplan.dev',
 ];
