@@ -140,37 +140,37 @@ return [
                     ],
                 ]);
             },
-            'db' => function() {
-                // Get the default component config
-                $config = craft\helpers\App::dbConfig();
-
-                // Use read/write query splitting
-                // (https://www.yiiframework.com/doc/guide/2.0/en/db-dao#read-write-splitting)
-
-                // Define the default config for replica DB connections
-                $config['slaveConfig'] = [
-                    'username' => App::env('DB_USER'),
-                    'password' => App::env('DB_PASSWORD'),
-                    'tablePrefix' => App::env('DB_TABLE_PREFIX'),
-                    'attributes' => [
-                        // Use a smaller connection timeout
-                        PDO::ATTR_TIMEOUT => 10,
-                    ],
-                    'charset' => 'utf8',
-                ];
-
-                // Define the replica DB connections
-                $config['slaves'] = [
-                    [
-                        'dsn' => App::env('DB_READ_DSN_1'),
-                        'dsn' => App::env('DB_READ_DSN_2'),
-                    ],
-                ];
-
-                // Instantiate and return it
-                return Craft::createObject($config);
-            },
-        ],
+//            'db' => function() {
+//                // Get the default component config
+//                $config = craft\helpers\App::dbConfig();
+//
+//                // Use read/write query splitting
+//                // (https://www.yiiframework.com/doc/guide/2.0/en/db-dao#read-write-splitting)
+//
+//                // Define the default config for replica DB connections
+//                $config['slaveConfig'] = [
+//                    'username' => App::env('DB_USER'),
+//                    'password' => App::env('DB_PASSWORD'),
+//                    'tablePrefix' => App::env('DB_TABLE_PREFIX'),
+//                    'attributes' => [
+//                        // Use a smaller connection timeout
+//                        PDO::ATTR_TIMEOUT => 10,
+//                    ],
+//                    'charset' => 'utf8',
+//                ];
+//
+//                // Define the replica DB connections
+//                $config['slaves'] = [
+//                    [
+//                        'dsn' => App::env('DB_READ_DSN_1'),
+//                        'dsn' => App::env('DB_READ_DSN_2'),
+//                    ],
+//                ];
+//
+//                // Instantiate and return it
+//                return Craft::createObject($config);
+//            },
+//        ],
     ],
     'dev' => [
         'components' => [
