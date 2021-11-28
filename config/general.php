@@ -51,6 +51,8 @@ return [
             '--exclude-table-data \'apilog.request_pluginlicenses\' ' .
             '--exclude-table-data \'apilog.requests\'',
         'testToEmailAddress' => App::env('TEST_EMAIL') ?: null,
+        'requireUserAgentAndIpForSession' => false,
+        'requireMatchingUserAgentForSession' => false,
     ],
     'prod' => [
         'defaultCookieDomain' => '.craft-sandbox.com',
