@@ -3,6 +3,7 @@
 namespace craftnet\controllers\api;
 
 use Composer\Semver\Comparator;
+use Composer\Semver\Semver;
 use Craft;
 use craft\elements\User;
 use craft\errors\InvalidPluginException;
@@ -81,6 +82,11 @@ abstract class BaseApiController extends Controller
      * @var string|null The user’s email
      */
     public $email;
+
+    /**
+     * @var string|null The platform versions.
+     */
+    public $platformVersions;
 
     /**
      * @var string|null The installed Craft version.
@@ -190,6 +196,16 @@ abstract class BaseApiController extends Controller
             'x-craft-plugin-license-statuses',
             'x-craft-plugin-licenses',
         ]));
+
+        // was platform info provided?
+        if ($checkCraftHeaders && $requestHeaders->has('X-Craft-Platform')) {
+            foreach (explode(',', $requestHeaders->get('X-Craft-Platform')) as $info) {
+                [$name, $installed] = array_pad(explode(':', $info, 2), 2, null);
+                if ($installed !== null) {
+                    $this->platformVersions[$name] = $installed;
+                }
+            }
+        }
 
         // was system info provided?
         if ($checkCraftHeaders && $requestHeaders->has('X-Craft-System')) {
@@ -875,9 +891,48 @@ EOL;
             $replacement = $plugin->getReplacement();
             $data['replacementName'] = $replacement->name ?? null;
             $data['replacementHandle'] = $replacement->handle ?? null;
+
+            // PHP version
+            if (!$data['phpVersionCompatible'] = $this->_checkPhpRequirement($plugin->latestVersionId, $phpConstraint, $incompatiblePhpVersion)) {
+                $data['phpConstraint'] = $phpConstraint;
+                $data['incompatiblePhpVersion'] = $incompatiblePhpVersion;
+            }
         }
 
         return $data;
+    }
+
+    /**
+     * Returns whether the Craft install appears to be compatible with the given package version.
+     *
+     * @param int $versionId
+     * @param string|null $phpConstraint
+     * @param string|null $incompatiblePhpVersion
+     * @return bool
+     */
+    private function _checkPhpRequirement(?int $versionId, ?string &$phpConstraint, ?string &$incompatiblePhpVersion = null): bool
+    {
+        if (!$versionId || !isset($this->platformVersions['php']) && !isset($this->platformVersions['composer-php'])) {
+            return true;
+        }
+
+        $phpConstraint = Module::getInstance()->getPackageManager()->getPhpConstraintByVersionId($versionId);
+
+        if (!$phpConstraint) {
+            return true;
+        }
+
+        if (isset($this->platformVersions['php']) && !Semver::satisfies($this->platformVersions['php'], $phpConstraint)) {
+            $incompatiblePhpVersion = 'php';
+            return false;
+        }
+
+        if (isset($this->platformVersions['composer-php']) && !Semver::satisfies($this->platformVersions['composer-php'], $phpConstraint)) {
+            $incompatiblePhpVersion = 'composer-php';
+            return false;
+        }
+
+        return true;
     }
 
     /**

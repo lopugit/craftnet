@@ -197,7 +197,7 @@ class PluginLicensesController extends Controller
                 'ownerId' => 'old.ownerId',
                 'cmsLicenseId' => 'old.cmsLicenseId',
             ])
-            ->from(Table::PLUGINLICENSES . ' old')
+            ->from(['old' => Table::PLUGINLICENSES])
             ->where(['old.editionId' => $oldEdition->id]);
 
         if ($liteEdition->price != 0) {
@@ -205,7 +205,7 @@ class PluginLicensesController extends Controller
                 ->addSelect([
                     'liteId' => 'lite.id',
                 ])
-                ->leftJoin(Table::PLUGINLICENSES . ' lite', [
+                ->leftJoin(['lite' => Table::PLUGINLICENSES], [
                     'and',
                     ['lite.editionId' => $liteEdition->id],
                     '[[lite.cmsLicenseId]] = [[old.cmsLicenseId]]',

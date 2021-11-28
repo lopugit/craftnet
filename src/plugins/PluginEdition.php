@@ -63,7 +63,10 @@ class PluginEdition extends PluginPurchasable implements EditionInterface
     {
         if ($handle === 'plugin') {
             $query = (new Query())
-                ->select(['id as source', 'pluginId as target'])
+                ->select([
+                    'source' => 'id',
+                    'target' => 'pluginId',
+                ])
                 ->from([Table::PLUGINEDITIONS])
                 ->where(['id' => ArrayHelper::getColumn($sourceElements, 'id')]);
             return ['elementType' => Plugin::class, 'map' => $query->all()];

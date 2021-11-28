@@ -113,8 +113,8 @@ class PluginLicenseManager extends Component
     public function getLicensesByOrder(int $orderId): array
     {
         $results = $this->_createLicenseQuery()
-            ->innerJoin(Table::PLUGINLICENSES_LINEITEMS . ' l_li', '[[l_li.licenseId]] = [[l.id]]')
-            ->innerJoin(CommerceTable::LINEITEMS . ' li', '[[li.id]] = [[l_li.lineItemId]]')
+            ->innerJoin(['l_li' => Table::PLUGINLICENSES_LINEITEMS], '[[l_li.licenseId]] = [[l.id]]')
+            ->innerJoin(['li' => CommerceTable::LINEITEMS], '[[li.id]] = [[l_li.lineItemId]]')
             ->andWhere(['li.orderId' => $orderId])
             ->all();
 
@@ -188,7 +188,7 @@ class PluginLicenseManager extends Component
 
         if ($handle !== null) {
             $query
-                ->innerJoin(Table::PLUGINS . ' p', '[[p.id]] = [[l.pluginId]]')
+                ->innerJoin(['p' => Table::PLUGINS], '[[p.id]] = [[l.pluginId]]')
                 ->andWhere(['p.handle' => $handle]);
         }
 
@@ -239,7 +239,7 @@ class PluginLicenseManager extends Component
     public function getLicensesByDeveloper(int $developerId, int $offset = null, int $limit = null, int &$total = null): array
     {
         $query = $this->_createLicenseQuery()
-            ->innerJoin(Table::PLUGINS . ' p', '[[p.id]] = [[l.pluginId]]')
+            ->innerJoin(['p' => Table::PLUGINS], '[[p.id]] = [[l.pluginId]]')
             ->andWhere(['p.developerId' => $developerId]);
 
         $total = $query->count();
@@ -267,7 +267,7 @@ class PluginLicenseManager extends Component
     public function getLicensesByPlugin(int $pluginId, ?int $editionId = null, bool $includeFreeEditions = false): array
     {
         $query = $this->_createLicenseQuery(false, false, $includeFreeEditions)
-            ->innerJoin(Table::PLUGINS . ' p', '[[p.id]] = [[l.pluginId]]')
+            ->innerJoin(['p' => Table::PLUGINS], '[[p.id]] = [[l.pluginId]]')
             ->andWhere(['l.pluginId' => $pluginId]);
 
         if ($editionId !== null) {
@@ -786,9 +786,9 @@ class PluginLicenseManager extends Component
                 'l.dateUpdated',
                 'l.uid',
             ])
-            ->from([Table::PLUGINLICENSES . ' l'])
+            ->from(['l' => Table::PLUGINLICENSES])
             // exclude licenses for plugin editions that are now free
-            ->leftJoin(Table::PLUGINEDITIONS . ' e', ['and', '[[e.id]] = [[l.editionId]]'])
+            ->leftJoin(['e' => Table::PLUGINEDITIONS], ['and', '[[e.id]] = [[l.editionId]]'])
             ->where(array_filter([
                 'or',
                 ['not', ['e.id' => null]],

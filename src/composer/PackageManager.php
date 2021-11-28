@@ -91,8 +91,8 @@ class PackageManager extends Component
         $versions = (new Query())
             ->select(['version'])
             ->distinct()
-            ->from([Table::PACKAGEVERSIONS . ' pv'])
-            ->innerJoin([Table::PACKAGES . ' p'], '[[p.id]] = [[pv.packageId]]')
+            ->from(['pv' => Table::PACKAGEVERSIONS])
+            ->innerJoin(['p' => Table::PACKAGES], '[[p.id]] = [[pv.packageId]]')
             ->where([
                 'p.name' => $name,
                 'pv.valid' => true,
@@ -148,8 +148,8 @@ class PackageManager extends Component
         $query = (new Query())
             ->select(['pv.version'])
             ->distinct()
-            ->from([Table::PACKAGEVERSIONS . ' pv'])
-            ->innerJoin([Table::PACKAGES . ' p'], '[[p.id]] = [[pv.packageId]]')
+            ->from(['pv' => Table::PACKAGEVERSIONS])
+            ->innerJoin(['p' => Table::PACKAGES], '[[p.id]] = [[pv.packageId]]')
             ->where([
                 'p.name' => $name,
                 'pv.valid' => true,
@@ -402,6 +402,19 @@ class PackageManager extends Component
             }
             return $dir === SORT_ASC ? 1 : -1;
         });
+    }
+
+    /**
+     * @param int $versionId The package version ID
+     * @return string|null
+     */
+    public function getPhpConstraintByVersionId(int $versionId): ?string
+    {
+        return (new Query())
+            ->select(['constraints'])
+            ->from([Table::PACKAGEDEPS])
+            ->where(['versionId' => $versionId, 'name' => 'php'])
+            ->scalar() ?: null;
     }
 
     /**
@@ -689,8 +702,8 @@ class PackageManager extends Component
                 'pv.critical',
                 'pv.notes',
             ])
-            ->from([Table::PACKAGEVERSIONS . ' pv'])
-            ->innerJoin([Table::PACKAGES . ' p'], '[[p.id]] = [[pv.packageId]]')
+            ->from(['pv' => Table::PACKAGEVERSIONS])
+            ->innerJoin(['p' => Table::PACKAGES], '[[p.id]] = [[pv.packageId]]')
             ->where(['pv.valid' => true]);
 
         if ($name !== null) {
@@ -1072,7 +1085,11 @@ class PackageManager extends Component
 
         // Get the new plugin releases
         $releases = $this->createReleaseQuery($plugin->packageName)
-            ->select(['pv.id', 'pv.normalizedVersion as version', 'pv.stability'])
+            ->select([
+                'pv.id',
+                'version' => 'pv.normalizedVersion',
+                'pv.stability',
+            ])
             ->indexBy('id')
             ->all();
 
@@ -1139,10 +1156,15 @@ class PackageManager extends Component
 
         // fetch all plugin releases ever, sorted by newest to oldest
         $pluginData = (new Query())
-            ->select(['v.packageId', 'v.id as versionId', 'v.version', 'd.constraints'])
-            ->from([Table::PACKAGEVERSIONS . ' v'])
-            ->innerJoin([Table::PLUGINVERSIONORDER . ' o'], '[[o.versionId]] = [[v.id]]')
-            ->innerJoin([Table::PACKAGEDEPS . ' d'], [
+            ->select([
+                'v.packageId',
+                'versionId' => 'v.id',
+                'v.version',
+                'd.constraints',
+            ])
+            ->from(['v' => Table::PACKAGEVERSIONS])
+            ->innerJoin(['o' => Table::PLUGINVERSIONORDER], '[[o.versionId]] = [[v.id]]')
+            ->innerJoin(['d' => Table::PACKAGEDEPS], [
                 'and',
                 '[[d.versionId]] = [[v.id]]',
                 ['d.name' => 'craftcms/cms'],

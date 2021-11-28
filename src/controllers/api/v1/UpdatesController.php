@@ -146,11 +146,7 @@ class UpdatesController extends BaseApiController
 
         // Update::$phpConstraint wasn't added until 3.5.15
         if ($latest !== null && version_compare($this->cmsVersion, '3.5.15', '>=')) {
-            $info['phpConstraint'] = (new Query())
-                ->select(['constraints'])
-                ->from([Table::PACKAGEDEPS])
-                ->where(['versionId' => $latest->id, 'name' => 'php'])
-                ->scalar() ?: null;
+            $info['phpConstraint'] = $this->module->getPackageManager()->getPhpConstraintByVersionId($latest->id);
         }
 
         if ($includePackageName) {
@@ -171,6 +167,7 @@ class UpdatesController extends BaseApiController
     private function _getPluginUpdateInfo(bool $includePackageName, array $maxVersions): array
     {
         $updateInfo = [];
+        $packageManager = $this->module->getPackageManager();
 
         foreach ($this->plugins as $handle => $plugin) {
             // Get the latest release that's compatible with their current Craft version
@@ -186,9 +183,12 @@ class UpdatesController extends BaseApiController
                 if (isset($maxVersions[$handle])) {
                     $constraints[] = "<={$maxVersions[$handle]}";
                 }
-                [$releases] = $this->_releases($plugin->packageName, $this->pluginVersions[$handle], implode(' ', $constraints));
+                /** @var array $releases */
+                /** @var PackageRelease|null $latest */
+                [$releases, $latest] = $this->_releases($plugin->packageName, $this->pluginVersions[$handle], implode(' ', $constraints));
             } else {
                 $releases = [];
+                $latest = null;
             }
 
             $info = [
@@ -204,6 +204,11 @@ class UpdatesController extends BaseApiController
                     $info['renewalPrice'] = $pluginLicense->getEdition()->renewalPrice;
                     $info['renewalCurrency'] = 'USD';
                 }
+            }
+
+            // Update::$phpConstraint wasn't added until 3.5.15
+            if ($latest !== null && version_compare($this->cmsVersion, '3.5.15', '>=')) {
+                $info['phpConstraint'] = $packageManager->getPhpConstraintByVersionId($latest->id);
             }
 
             if ($includePackageName) {

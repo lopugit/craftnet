@@ -32,7 +32,7 @@ class PartnerProjectsQuery extends Query
     {
         $this
             ->select('*')
-            ->from(Table::PARTNERPROJECTS . ' p')
+            ->from(['p' => Table::PARTNERPROJECTS])
             ->orderBy(['p.sortOrder' => SORT_ASC]);
 
         if (isset($this->_partnerId)) {

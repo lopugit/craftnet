@@ -64,14 +64,20 @@ class ClaimLicensesController extends Controller
                 ['ownerId' => null],
             ];
             $cmsLicenses = (new Query())
-                ->select(['email', 'count(*) as total'])
+                ->select([
+                    'email',
+                    'total' => 'count(*)',
+                ])
                 ->from([Table::CMSLICENSES])
                 ->where($condition)
                 ->groupBy('email')
                 ->indexBy('email')
                 ->all();
             $pluginLicenses = (new Query())
-                ->select(['email', 'count(*) as total'])
+                ->select([
+                    'email',
+                    'total' => 'count(*)',
+                ])
                 ->from([Table::PLUGINLICENSES])
                 ->where($condition)
                 ->groupBy('email')

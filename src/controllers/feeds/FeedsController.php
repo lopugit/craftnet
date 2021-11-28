@@ -114,9 +114,9 @@ class FeedsController extends Controller
                 'u.lastName',
                 'u.username',
             ])
-            ->innerJoin(Table::PLUGINS . ' pl', '[[pl.packageId]] = [[p.id]]')
-            ->innerJoin(CraftTable::CONTENT . ' dc', '[[dc.elementId]] = [[pl.developerId]]')
-            ->innerJoin(CraftTable::USERS . ' u', '[[u.id]] = [[pl.developerId]]')
+            ->innerJoin(['pl' => Table::PLUGINS], '[[pl.packageId]] = [[p.id]]')
+            ->innerJoin(['dc' => CraftTable::CONTENT], '[[dc.elementId]] = [[pl.developerId]]')
+            ->innerJoin(['u' => CraftTable::USERS], '[[u.id]] = [[pl.developerId]]')
             ->andWhere(['not', ['pv.time' => null]])
             ->andWhere(['not', ['pl.dateApproved' => null]])
             ->orderBy(['pv.time' => SORT_DESC])

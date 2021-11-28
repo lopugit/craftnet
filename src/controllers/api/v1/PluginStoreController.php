@@ -197,14 +197,14 @@ class PluginStoreController extends BaseApiController
                 $data['latestCompatibleVersion'] = (new Query)
                     ->select(['v.version'])
                     ->from(['v' => Table::PACKAGEVERSIONS])
-                    ->innerJoin([Table::PLUGINVERSIONORDER . ' vo'], '[[vo.versionId]] = [[v.id]]')
+                    ->innerJoin(['vo' => Table::PLUGINVERSIONORDER], '[[vo.versionId]] = [[v.id]]')
                     ->where(['v.packageId' => $data['packageId']])
                     ->andWhere([
                         'vo.stableOrder' => (new Query())
                             ->select(['max([[s_vo.stableOrder]])'])
                             ->from(['s_vo' => Table::PLUGINVERSIONORDER])
-                            ->innerJoin([Table::PACKAGEVERSIONS . ' s_v'], '[[s_v.id]] = [[s_vo.versionId]]')
-                            ->innerJoin([Table::PLUGINVERSIONCOMPAT . ' s_vc'], '[[s_vc.pluginVersionId]] = [[s_v.id]]')
+                            ->innerJoin(['s_v' => Table::PACKAGEVERSIONS], '[[s_v.id]] = [[s_vo.versionId]]')
+                            ->innerJoin(['s_vc' => Table::PLUGINVERSIONCOMPAT], '[[s_vc.pluginVersionId]] = [[s_v.id]]')
                             ->where(['s_v.packageId' => $data['packageId']])
                             ->andWhere(['s_vc.cmsVersionId' => $cmsRelease->id])
                             ->groupBy(['s_v.packageId']),

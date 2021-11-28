@@ -107,7 +107,10 @@ class Plugin extends Element
         switch ($handle) {
             case 'editions':
                 $query = (new Query())
-                    ->select(['pluginId as source', 'id as target'])
+                    ->select([
+                        'source' => 'pluginId',
+                        'target' => 'id',
+                    ])
                     ->from([Table::PLUGINEDITIONS])
                     ->where(['pluginId' => ArrayHelper::getColumn($sourceElements, 'id')])
                     ->orderBy(['price' => SORT_ASC]);
@@ -115,14 +118,20 @@ class Plugin extends Element
 
             case 'developer':
                 $query = (new Query())
-                    ->select(['id as source', 'developerId as target'])
+                    ->select([
+                        'source' => 'id',
+                        'target' => 'developerId',
+                    ])
                     ->from([Table::PLUGINS])
                     ->where(['id' => ArrayHelper::getColumn($sourceElements, 'id')]);
                 return ['elementType' => User::class, 'map' => $query->all()];
 
             case 'icon':
                 $query = (new Query())
-                    ->select(['id as source', 'iconId as target'])
+                    ->select([
+                        'source' => 'id',
+                        'target' => 'iconId',
+                    ])
                     ->from([Table::PLUGINS])
                     ->where(['id' => ArrayHelper::getColumn($sourceElements, 'id')])
                     ->andWhere(['not', ['iconId' => null]]);
@@ -131,9 +140,12 @@ class Plugin extends Element
             case 'categories':
             case 'primaryCategory':
                 $query = (new Query())
-                    ->select(['p.id as source', 'pc.categoryId as target'])
-                    ->from([Table::PLUGINS . ' p'])
-                    ->innerJoin([Table::PLUGINCATEGORIES . ' pc'], '[[pc.pluginId]] = [[p.id]]')
+                    ->select([
+                        'source' => 'p.id',
+                        'target' => 'pc.categoryId',
+                    ])
+                    ->from(['p' => Table::PLUGINS])
+                    ->innerJoin(['pc' => Table::PLUGINCATEGORIES], '[[pc.pluginId]] = [[p.id]]')
                     ->where(['p.id' => ArrayHelper::getColumn($sourceElements, 'id')])
                     ->orderBy(['pc.sortOrder' => SORT_ASC]);
                 if ($handle === 'primaryCategory') {
@@ -143,9 +155,12 @@ class Plugin extends Element
 
             case 'screenshots':
                 $query = (new Query())
-                    ->select(['p.id as source', 'ps.assetId as target'])
-                    ->from([Table::PLUGINS . ' p'])
-                    ->innerJoin([Table::PLUGINSCREENSHOTS . ' ps'], '[[ps.pluginId]] = [[p.id]]')
+                    ->select([
+                        'source' => 'p.id',
+                        'target' => 'ps.assetId',
+                    ])
+                    ->from(['p' => Table::PLUGINS])
+                    ->innerJoin(['ps' => Table::PLUGINSCREENSHOTS], '[[ps.pluginId]] = [[p.id]]')
                     ->where(['p.id' => ArrayHelper::getColumn($sourceElements, 'id')])
                     ->orderBy(['ps.sortOrder' => SORT_ASC]);
                 return ['elementType' => Asset::class, 'map' => $query->all()];
@@ -315,6 +330,11 @@ class Plugin extends Element
      * @var string|null The plugin’s changelog path
      */
     public $changelogPath;
+
+    /**
+     * @var int|null The ID of the latest version available for the plugin
+     */
+    public $latestVersionId;
 
     /**
      * @var string|null The latest version available for the plugin
@@ -652,7 +672,7 @@ class Plugin extends Element
             return $this->_categories;
         }
         return $this->_categories = Category::find()
-            ->innerJoin([Table::PLUGINCATEGORIES . ' pc'], [
+            ->innerJoin(['pc' => Table::PLUGINCATEGORIES], [
                 'and',
                 '[[pc.categoryId]] = [[categories.id]]',
                 ['pc.pluginId' => $this->id],
@@ -678,7 +698,7 @@ class Plugin extends Element
             return $this->_screenshots;
         }
         return $this->_screenshots = Asset::find()
-            ->innerJoin([Table::PLUGINSCREENSHOTS . ' ps'], [
+            ->innerJoin(['ps' => Table::PLUGINSCREENSHOTS], [
                 'and',
                 '[[ps.assetId]] = [[assets.id]]',
                 ['ps.pluginId' => $this->id],

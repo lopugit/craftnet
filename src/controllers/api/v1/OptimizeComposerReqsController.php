@@ -90,7 +90,7 @@ class OptimizeComposerReqsController extends BaseApiController
             //->select(['pd.name', 'pd.constraints'])
             ->select(['pd.name'])
             ->distinct()
-            ->from([Table::PACKAGEDEPS . ' pd'])
+            ->from(['pd' => Table::PACKAGEDEPS])
             ->where([
                 'and',
                 [
