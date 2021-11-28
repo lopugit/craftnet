@@ -170,7 +170,7 @@ return [
 //                // Instantiate and return it
 //                return Craft::createObject($config);
 //            },
-//        ],
+        ],
     ],
     'dev' => [
         'components' => [
