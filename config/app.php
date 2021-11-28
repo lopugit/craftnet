@@ -109,14 +109,14 @@ return [
                 'secret' => App::env('AWS_SECRET_ACCESS_KEY'),
                 'region' => App::env('REGION'),
             ],
-            'session' => function() {
-                $config = craft\helpers\App::sessionConfig();
-                $config['class'] = yii\redis\Session::class;
-                $stateKeyPrefix = md5('Craft.' . craft\web\Session::class . '.' . Craft::$app->id);
-                $config['flashParam'] = $stateKeyPrefix . '__flash';
-                $config['authAccessParam'] = $stateKeyPrefix . '__auth_access';
-                return Craft::createObject($config);
-            },
+//            'session' => function() {
+//                $config = craft\helpers\App::sessionConfig();
+//                $config['class'] = yii\redis\Session::class;
+//                $stateKeyPrefix = md5('Craft.' . craft\web\Session::class . '.' . Craft::$app->id);
+//                $config['flashParam'] = $stateKeyPrefix . '__flash';
+//                $config['authAccessParam'] = $stateKeyPrefix . '__auth_access';
+//                return Craft::createObject($config);
+//            },
             'log' => function() {
                 $logFileName = Craft::$app->getRequest()->getIsConsoleRequest() ? 'console.log' : 'web.log';
                 if (!YII_DEBUG) {
