@@ -83,18 +83,18 @@ return [
             '\superbig\bugsnag\Bootstrap',
         ],
         'components' => [
-            'redis' => [
-                'class' => yii\redis\Connection::class,
-                'hostname' => App::env('ELASTICACHE_HOSTNAME'),
-                'port' => App::env('ELASTICACHE_PORT'),
-                'database' => 0,
-            ],
-            'cache' => [
-                'class' => yii\redis\Cache::class,
-            ],
-            'mutex' => [
-                'class' => \yii\redis\Mutex::class,
-            ],
+//            'redis' => [
+//                'class' => yii\redis\Connection::class,
+//                'hostname' => App::env('ELASTICACHE_HOSTNAME'),
+//                'port' => App::env('ELASTICACHE_PORT'),
+//                'database' => 0,
+//            ],
+//            'cache' => [
+//                'class' => yii\redis\Cache::class,
+//            ],
+//            'mutex' => [
+//                'class' => \yii\redis\Mutex::class,
+//            ],
             'queue' => [
                 'class' => \yii\queue\sqs\Queue::class,
                 'url' => App::env('SQS_URL'),
