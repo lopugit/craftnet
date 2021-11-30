@@ -24,11 +24,11 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.3.0",
-    "@vue/cli-plugin-eslint": "^3.3.0",
-    "@vue/cli-service": "^3.3.0",
-    "node-sass": "^4.9.0",
+    "@vue/cli-plugin-eslint": "^4.0.0",
+    "@vue/cli-service": "^4.2.0",
+    "node-sass": "^6.0.1",
     "sass-loader": "^7.0.1",
-    "tailwindcss": "^0.6.6",
+    "tailwindcss": "^2.2.0",
     "vue-template-compiler": "^2.5.17",
     "vuetable-2": "^1.7.5",
     "webpack-manifest-plugin": "^2.0.4"
