@@ -4,7 +4,7 @@ use craft\helpers\App;
 
 return [
     '*' => [
-        'craftIdUrl' => 'https://id.craft-sandbox.com',
+        'craftIdUrl' => 'https://id.craftcms.com',
         'stripePublicKey' => App::env('STRIPE_PUBLIC_KEY'),
         'stripeApiKey' => App::env('STRIPE_API_KEY'),
         'stripeClientId' => App::env('STRIPE_CLIENT_ID'),
