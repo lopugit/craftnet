@@ -16,7 +16,7 @@ switch ($_SERVER['HTTP_HOST']) {
         break;
     case 'composer.craftcms.com':
     case 'composer.craftcms.test':
-    case 'composer.craftcms.niro':
+    case 'composer.craftcms.nitro':
         define('CRAFT_SITE', 'composer');
         break;
     case 'id.craftcms.com':

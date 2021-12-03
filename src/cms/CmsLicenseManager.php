@@ -17,6 +17,9 @@ use craftnet\plugins\Plugin;
 use craftnet\plugins\PluginEdition;
 use LayerShifter\TLDExtract\Extract;
 use LayerShifter\TLDExtract\IDN;
+use Pdp\Domain;
+use Pdp\Idna;
+use Pdp\Rules;
 use yii\base\Component;
 use yii\base\Exception;
 use yii\base\InvalidArgumentException;
@@ -75,53 +78,68 @@ class CmsLicenseManager extends Component
         $isPunycoded = StringHelper::contains($url, 'xn--', false);
 
         if ($isPunycoded) {
-            $url = (new IDN())->toUTF8($url);
+            $url = Idna::toUnicode($url, 0)->result();
         }
 
-        $extractionMode = Extract::MODE_ALLOW_ICANN | Extract::MODE_ALLOW_PRIVATE;
+        $list = Craft::$app->getCache()->get('publicSuffixList');
 
-        if ($allowCustom) {
-            $extractionMode |= Extract::MODE_ALLOW_NOT_EXISTING_SUFFIXES;
+        if (!$list) {
+            $list = Rules::fromPath(__DIR__.'/public_suffix_list.dat');
+            Craft::$app->getCache()->set('publicSuffixList', $list, 1209600);
         }
 
-        $result = (new Extract(null, null, $extractionMode))
-            ->parse(mb_strtolower($url));
+        // ignore if it's a nonstandard port
+        $port = parse_url($url, PHP_URL_PORT);
+        if ($port) {
+            if ($port != 80 && $port != 443) {
+                return null;
+            }
+            $url = mb_substr($url, 0, strpos($url, ':'));
+        }
 
-        if (($domain = $result->getRegistrableDomain()) === null) {
+        $result = $list->resolve($url);
+
+        // Account for things like "localhost" - one word segments
+        if (
+                !$result->suffix()->count() &&
+                !$result->secondLevelDomain()->count() &&
+                !$result->registrableDomain()->count() &&
+                !$result->subDomain()->count() &&
+                !str_contains($result->domain()->toString(), '.')
+        ) {
+            return null;
+        }
+
+        if (($domain = $result->registrableDomain()->toString()) === null) {
             return null;
         }
 
         if ($allowCustom) {
             return $domain;
         }
-        // ignore if it's a private domain, unless we consider its suffix to be public (e.g. uk.com)
-        if (!in_array($result->getSuffix(), $this->publicDomainSuffixes, true)) {
-            $altDomain = (new Extract(null, null, Extract::MODE_ALLOW_ICANN))
-                ->parse(mb_strtolower($url))
-                ->getRegistrableDomain();
-            if ($domain !== $altDomain) {
-                return null;
-            }
-        }
 
         // ignore if it's a dev domain
         if (
             in_array($domain, $this->devDomains, true) ||
-            in_array($result->getFullHost(), $this->devDomains, true)
+            in_array($result->registrableDomain()->toString(), $this->devDomains, true)
         ) {
             return null;
         }
 
-        // ignore if it's a nonstandard port
-        $port = parse_url($url, PHP_URL_PORT);
-        if ($port && $port != 80 && $port != 443) {
+        // Check if any of the subdomains sound dev-y
+        $subdomain = $result->subDomain()->toString();
+        if ($subdomain && array_intersect(preg_split('/\b/', $subdomain), $this->devSubdomainWords)) {
             return null;
         }
 
-        // Check if any of the subdomains sound dev-y
-        $subdomain = $result->getSubdomain();
-        if ($subdomain && array_intersect(preg_split('/\b/', $subdomain), $this->devSubdomainWords)) {
-            return null;
+        // For "fake" tlds like .nitro
+        if (!$result->suffix()->isICANN()) {
+            // ignore if it's a private domain, unless we consider its suffix to be public (e.g. uk.com)
+            if (!in_array($result->suffix()->toString(), $this->publicDomainSuffixes, true)) {
+                if ($result->domain()->toString() !== $result->suffix()->domain()->toString()) {
+                    return null;
+                }
+            }
         }
 
         return $domain;
