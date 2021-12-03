@@ -38,7 +38,10 @@
   "autoload": {
     "psr-4": {
       "craftnet\\": "src/"
-    }
+    },
+    "files": [
+      "fixes/psr7.php"
+    ]
   },
   "config": {
     "optimize-autoloader": true,
