@@ -25,7 +25,6 @@
     "thamtech/yii2-ratelimiter-advanced": "^0.5",
     "jeremykendall/php-domain-parser": "^6.1.0",
     "knplabs/github-api": "^3.0.0"
-
   },
   "require-dev": {
     "codeception/codeception": "^4.0.0",
@@ -38,8 +37,7 @@
   },
   "autoload": {
     "psr-4": {
-      "craftnet\\": "src/",
-      "craftcom\\": "craftcom/"
+      "craftnet\\": "src/"
     }
   },
   "config": {
