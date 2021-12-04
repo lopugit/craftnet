@@ -26,27 +26,6 @@ if ($keyPath = App::env('LICENSE_KEY_PATH')) {
     define('CRAFT_LICENSE_KEY_PATH', $keyPath);
 }
 
-// Manually load environment variables so they're available to the PHP CLI
-$envVars = '/opt/elasticbeanstalk/support/envvars';
-
-if (file_exists($envVars) && is_file($envVars)) {
-    $contents = file_get_contents($envVars);
-
-    foreach (explode("\n", $contents) as $line) {
-        if (empty($line)) {
-            continue;
-        }
-
-        $parts = explode(' ', $line);
-        $newLine = $parts[1];
-        $firstEqual = strpos($newLine, '=');
-        $name = substr($newLine, 0, $firstEqual);
-        $value = substr($newLine, $firstEqual + 1);
-        $value = trim($value, '"');
-        putenv($name . '=' . $value);
-    }
-}
-
 define('CRAFT_ENVIRONMENT', App::env('CRAFT_ENV') ?: 'prod');
 
 // Craft
