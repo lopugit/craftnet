@@ -113,6 +113,10 @@ class LicensesController extends Controller
      */
     public function actionProcessExpiredLicenses(): int
     {
+        if ($this->interactive && $this->confirm('Add a note?')) {
+            $note = $this->prompt('Note:');
+        }
+
         $cmsLicenseManager = $this->module->getCmsLicenseManager();
         $pluginLicenseManager = $this->module->getPluginLicenseManager();
 
@@ -178,6 +182,7 @@ class LicensesController extends Controller
                         'renewedLicenses' => $autoRenewFailed ? [] : $renewLicenses,
                         'expiredLicenses' => $expireLicenses,
                         'autoRenewFailed' => $autoRenewFailed,
+                        'note' => $note ?? null,
                     ])
                     ->setTo($user ?? $email);
 
@@ -226,14 +231,14 @@ class LicensesController extends Controller
     private function _findRenewableLicenses(array $licenses): array
     {
         $utc = new \DateTimeZone('UTC');
-        $today = new \DateTime('midnight', $utc);
+        $minRenewalDate = (new \DateTime('midnight', $utc))->modify('-14 days');
 
-        $licensesByType = ArrayHelper::index($licenses, null, function(LicenseInterface $license) use ($utc, $today) {
+        $licensesByType = ArrayHelper::index($licenses, null, function(LicenseInterface $license) use ($utc, $minRenewalDate) {
             if ($license->getWillAutoRenew() && $license->getWasReminded() && $license->getRenewalPrice()) {
                 // Only auto-renew if it just expired yesterday
                 $expiryDate = $license->getExpiryDate();
                 $expiryDate->setTimezone($utc);
-                if ($expiryDate >= $today) {
+                if ($expiryDate >= $minRenewalDate) {
                     return 'renew';
                 }
             }
@@ -295,6 +300,7 @@ class LicensesController extends Controller
                 $lineItem = $lineItemsService->resolveLineItem($order->id, $renewalId, [
                     'licenseKey' => $license->getKey(),
                     'lockedPrice' => $license->getRenewalPrice(),
+                    'expiryDate' => '1y', // set to expire a year later, regardless of the original expiry date
                 ]);
                 $lineItem->qty = 1;
                 $order->addLineItem($lineItem);

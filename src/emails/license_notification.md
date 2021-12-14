@@ -14,7 +14,7 @@ Hey {{ user.friendlyName ?? 'there' }},
 
 {% if renewedLicenses|length %}
 {% set pl = renewedLicenses|length != 1 %}
-The following {{ pl ? 'licenses have' : 'license has' }} been auto-renewed:
+The following {{ pl ? 'licenses have' : 'license has' }} been auto-renewed for another year of updates:
 
 {% for license in renewedLicenses %}
 - {{ showLicense(license, user) }}
@@ -45,5 +45,7 @@ To ensure you don’t miss any updates, follow these steps:
 3. From the license {{ pl ? 'screens' : 'screen' }}, click  and click the “Renew your license” button in the “Updates” section.
 {% endif %}
 {% endif %}
+
+{{ note ?? '' }}
 
 Have a great day!
