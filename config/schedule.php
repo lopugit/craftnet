@@ -20,7 +20,7 @@ $schedule->command('craftnet/licenses/send-reminders')
 //    ->withoutOverlapping();
 
 $schedule->command('craftnet/payouts/update')
-    ->everyTenMinutes()
+    ->everyMinute()
     ->withoutOverlapping()
     ->emailOutputTo(['brad@pixelandtonic.com'])
     ->sendOutputTo('/var/app/current/cron.log');
