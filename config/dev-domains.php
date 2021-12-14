@@ -147,6 +147,7 @@ return [
     'websitetestlink.com',
     'website-stage.com',
     'whatchado.io',
+    'wicycle.dev',
     'wrkcpt.dev',
     'xip.io',
     'yourstruly.space',
