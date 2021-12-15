@@ -51,4 +51,10 @@ class PayoutsController extends Controller
 
         return ExitCode::OK;
     }
+
+    public function actionTest()
+    {
+        $this->stdout("test\n", Console::FG_GREEN);
+        \Craft::error('test', __METHOD__);
+    }
 }

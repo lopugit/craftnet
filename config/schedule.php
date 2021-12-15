@@ -24,6 +24,10 @@ $schedule->command('craftnet/payouts/update')
     ->withoutOverlapping()
     ->sendOutputTo('/var/app/current/cron/payouts-update.log');
 
+$schedule->command('craftnet/payouts/test')
+    ->everyMinute()
+    ->withoutOverlapping();
+
 $schedule->command('craftnet/payouts/update')
     ->everyMinute()
     ->withoutOverlapping()
