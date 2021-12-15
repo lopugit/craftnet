@@ -21,12 +21,6 @@ $schedule->command('craftnet/licenses/process-expired-licenses')
     ->sendOutputTo('/var/app/current/cron/licenses-process-expired-licenses.log')
     ->emailOutputTo([$deliveryEmail]);
 
-$schedule->command('craftnet/payouts/update')
-    ->everyTenMinutes()
-    ->withoutOverlapping()
-    ->sendOutputTo('/var/app/current/cron/payouts-update.log')
-    ->emailOutputTo([$deliveryEmail]);
-
 $schedule->command('craftnet/packages/update-deps --queue')
     ->daily()
     ->withoutOverlapping()
