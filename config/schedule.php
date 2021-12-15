@@ -22,8 +22,8 @@ $schedule->command('craftnet/licenses/send-reminders')
 $schedule->command('craftnet/payouts/update')
     ->everyMinute()
     ->withoutOverlapping()
-    ->emailOutputTo(['brad@pixelandtonic.com'])
-    ->sendOutputTo('/var/app/current/cron.log');
+    ->sendOutputTo('/var/app/current/cron.log')
+    ->emailOutputTo(['brad@pixelandtonic.com']);
 
 $schedule->command('craftnet/packages/update-deps --queue')
     ->daily()
