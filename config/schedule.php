@@ -5,7 +5,7 @@ if (!defined('CRAFT_ENVIRONMENT') || CRAFT_ENVIRONMENT !== 'prod') {
     return;
 }
 
-$deliveryEmail = 'brad@pixelandtonic.com';
+$deliveryEmail = 'devops@pixelandtonic.com';
 
 /** @var $schedule omnilight\scheduling\Schedule */
 
