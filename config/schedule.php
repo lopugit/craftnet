@@ -22,8 +22,7 @@ $schedule->command('craftnet/licenses/send-reminders')
 $schedule->command('craftnet/payouts/update')
     ->everyMinute()
     ->withoutOverlapping()
-    ->sendOutputTo('/var/app/current/cron/cron.log')
-    ->emailOutputTo(['brad@pixelandtonic.com']);
+    ->sendOutputTo('/var/app/current/cron/payouts-update.log');
 
 $schedule->command('craftnet/packages/update-deps --queue')
     ->daily()
@@ -31,12 +30,4 @@ $schedule->command('craftnet/packages/update-deps --queue')
 
 $schedule->command('craftnet/plugins/update-install-counts')
     ->daily()
-    ->withoutOverlapping();
-
-$schedule->exec('/var/app/current/scripts/backup_db.sh')
-    ->dailyAt('03:00')
-    ->withoutOverlapping();
-
-$schedule->exec('/var/app/current/scripts/sync_backups_to_s3.sh')
-    ->dailyAt('03:30')
     ->withoutOverlapping();
