@@ -5,35 +5,36 @@ if (!defined('CRAFT_ENVIRONMENT') || CRAFT_ENVIRONMENT !== 'prod') {
     return;
 }
 
+$deliveryEmail = 'brad@pixelandtonic.com';
+
 /** @var $schedule omnilight\scheduling\Schedule */
 
 $schedule->command('craftnet/licenses/send-reminders')
     ->daily()
-    ->withoutOverlapping();
+    ->withoutOverlapping()
+    ->sendOutputTo('/var/app/current/cron/licenses-send-reminders.log')
+    ->emailOutputTo([$deliveryEmail]);
 
 $schedule->command('craftnet/licenses/process-expired-licenses')
     ->daily()
-    ->withoutOverlapping();
-
-//$schedule->command('craftnet/payouts/send')
-//    ->daily()
-//    ->withoutOverlapping();
+    ->withoutOverlapping()
+    ->sendOutputTo('/var/app/current/cron/licenses-process-expired-licenses.log')
+    ->emailOutputTo([$deliveryEmail]);
 
 $schedule->command('craftnet/payouts/update')
     ->everyTenMinutes()
     ->withoutOverlapping()
-    ->sendOutputTo('/var/app/current/cron/payouts-update.log');
-
-$schedule->command('craftnet/payouts/test')
-    ->everyMinute()
-    ->withoutOverlapping()
     ->sendOutputTo('/var/app/current/cron/payouts-update.log')
-    ->emailOutputTo('brad@pixelandtonic.com');
+    ->emailOutputTo([$deliveryEmail]);
 
 $schedule->command('craftnet/packages/update-deps --queue')
     ->daily()
-    ->withoutOverlapping();
+    ->withoutOverlapping()
+    ->sendOutputTo('/var/app/current/cron/packages-update-deps.log')
+    ->emailOutputTo([$deliveryEmail]);
 
 $schedule->command('craftnet/plugins/update-install-counts')
     ->daily()
-    ->withoutOverlapping();
+    ->withoutOverlapping()
+    ->sendOutputTo('/var/app/current/cron/plugins-update-install-counts.log')
+    ->emailOutputTo([$deliveryEmail]);
