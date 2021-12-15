@@ -11,23 +11,18 @@ $schedule->command('craftnet/licenses/send-reminders')
     ->daily()
     ->withoutOverlapping();
 
-//$schedule->command('craftnet/licenses/process-expired-licenses')
-//    ->daily()
-//    ->withoutOverlapping();
+$schedule->command('craftnet/licenses/process-expired-licenses')
+    ->daily()
+    ->withoutOverlapping();
 
 //$schedule->command('craftnet/payouts/send')
 //    ->daily()
 //    ->withoutOverlapping();
 
-//$schedule->command('craftnet/payouts/update')
-//    ->everyMinute()
-//    ->withoutOverlapping()
-//    ->sendOutputTo('/var/app/current/cron/payouts-update.log');
-
-$schedule->call(function() {
-    $output = 'Cron job ran at ' . date('Y-m-d H:i:s');
-    echo $output;
-})->everyMinute()->withoutOverlapping()->sendOutputTo('/var/app/current/cron/payouts-update.log');
+$schedule->command('craftnet/payouts/update')
+    ->everyTenMinutes()
+    ->withoutOverlapping()
+    ->sendOutputTo('/var/app/current/cron/payouts-update.log');
 
 $schedule->command('craftnet/payouts/update')
     ->everyMinute()
