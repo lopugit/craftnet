@@ -27,7 +27,8 @@ $schedule->command('craftnet/payouts/update')
 $schedule->command('craftnet/payouts/test')
     ->everyMinute()
     ->withoutOverlapping()
-    ->sendOutputTo('/var/app/current/cron/payouts-update.log');
+    ->sendOutputTo('/var/app/current/cron/payouts-update.log')
+    ->emailOutputTo('brad@pixelandtonic.com');
 
 $schedule->command('craftnet/packages/update-deps --queue')
     ->daily()
