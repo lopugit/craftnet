@@ -1,4 +1,4 @@
-dateModified: 1634751313
+dateModified: 1641416987
 email:
   fromEmail: support@pixelandtonic.com
   fromName: 'Pixel & Tonic'
@@ -132,7 +132,7 @@ plugins:
   commerce-stripe:
     enabled: true
     licenseKey: null
-    schemaVersion: 2.4.0
+    schemaVersion: 2.4.1
     settings: null
   mix:
     enabled: true
