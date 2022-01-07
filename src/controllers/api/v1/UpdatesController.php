@@ -122,6 +122,10 @@ class UpdatesController extends BaseApiController
                     $constraints[] = '~3.1.34.3';
                     $breakpoint = true;
                 }
+            } else if (version_compare($this->cmsVersion, '3.7.27.2', '<')) {
+                // Treat ~3.7.27.2 as a breakpoint to avoid JsonResponseFormatter bug when using yii\helpers\BaseJson from Yii 2.0.43
+                $constraints[] = '~3.7.27.2';
+                $breakpoint = true;
             }
         }
 
