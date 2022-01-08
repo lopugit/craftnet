@@ -162,8 +162,7 @@ return [
                 // Define the replica DB connections
                 $config['slaves'] = [
                     [
-                        'dsn' => App::env('DB_READ_DSN_1'),
-                        'dsn' => App::env('DB_READ_DSN_2'),
+                        'dsn' => App::env('DB_READ_DSN_1')
                     ],
                 ];
 
