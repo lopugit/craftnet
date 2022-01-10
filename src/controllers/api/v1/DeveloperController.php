@@ -3,6 +3,7 @@
 namespace craftnet\controllers\api\v1;
 
 use craft\elements\User;
+use craftnet\behaviors\UserBehavior;
 use craftnet\controllers\api\BaseApiController;
 use yii\web\Response;
 
@@ -21,11 +22,12 @@ class DeveloperController extends BaseApiController
      */
     public function actionIndex($userId): Response
     {
+        /** @var UserBehavior|User $user */
         $user = User::find()->id($userId)->status(null)->one();
 
         if ($user) {
             return $this->asJson([
-                'developerName' => strip_tags($user->developerName),
+                'developerName' => strip_tags($user->getDeveloperName()),
                 'developerUrl' => $user->developerUrl,
                 'location' => $user->location,
                 'username' => $user->username,
