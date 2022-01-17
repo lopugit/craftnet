@@ -22,6 +22,7 @@ return [
     'craft.dev',
     'craft2.dev',
     'craft3.dev',
+    'craft3.starter.thirstcreative.com.au',
     'craftcms.com', // for demo.craftcms.com
     'craftdemos.io',
     'crudecode.com',
@@ -150,5 +151,5 @@ return [
     'wicycle.dev',
     'wrkcpt.dev',
     'xip.io',
-    'yourstruly.space',
+    'yourstruly.space'
 ];
